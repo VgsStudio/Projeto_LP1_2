@@ -42,6 +42,12 @@ public class Server {
         }
     }
 
+    public boolean loginUser(String username, String password){
+
+        // TODO: implementar a lógica de login
+        return true;
+    }
+
 
     public static void main(String args[]){
         System.out.println("====== CONSOLE DO SERVIDOR ======");
