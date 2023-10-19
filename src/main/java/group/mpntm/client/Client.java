@@ -19,13 +19,33 @@ public class Client {
         scanner = new Scanner(System.in);
     }
 
-    public void start() throws IOException{
+    public int start(String login, String password) throws IOException{
         clientSocket = new Socket(Server.ADDRESS, Server.PORT);
         saida = new PrintWriter(clientSocket.getOutputStream(), true);
         entrada = new BufferedReader(new java.io.InputStreamReader(clientSocket.getInputStream()));
         System.out.println("Cliente " + Server.ADDRESS + ":" + Server.PORT + " conectado ao servidor!");
-        messageLoop();
+
+        int response = loginUser(login, password);
+
+        if (response == 1){
+            System.out.println("Login realizado com sucesso!");
+            messageLoop();
+            return 1;
+        } else {
+            System.out.println("Erro ao realizar o login!");
+            clientSocket.close();
+            return 0;
+        }
+
     }
+
+    public int loginUser(String login, String password) throws IOException {
+        String encryptedPass = encryptPassword(password);
+        saida.println(login + " " + encryptedPass);
+        String response = entrada.readLine();
+        return Integer.parseInt(response);
+    }
+
 
     private void messageLoop() throws IOException{
         String msg;
@@ -42,11 +62,16 @@ public class Client {
         System.out.println("====== Console do Cliente ======");
         try {
             Client client = new Client();
-            client.start();
+            client.start("admin", "admin");
         } catch (IOException e) {
             System.out.println("Erro ao iniciar o cliente: " + e.getMessage());
         }
         System.out.println("Cliente finalizado!");
 
+    }
+
+    private String encryptPassword(String password){
+        String encryptedPass = password; // TODO: Criptografar a senha
+        return encryptedPass;
     }
 }

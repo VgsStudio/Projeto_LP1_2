@@ -34,24 +34,34 @@ public class Server {
 
     public void clientMessageLoop(ClientSocket clientSocket){
         String msg;
+        boolean isLogged = false;
         try{
-            while((msg = clientSocket.getMessage()) != null && !msg.equals("sair")){
+            while((msg = clientSocket.getMessage()) != null){
 
-                String[] msgSplit = msg.split(" ");
+                if (!isLogged){
 
-                if (msgSplit.length != 2){
-                    clientSocket.sendMsg("Erro: Formato de mensagem inválido!");
-                    continue;
+                    String[] msgSplit = msg.split(" ");
+
+                    if (msgSplit.length != 2){
+                        clientSocket.sendMsg("Erro: Formato de mensagem inválido!");
+                        continue;
+                    }
+
+                    String username = msgSplit[0];
+                    String password = msgSplit[1];
+
+                    if (loginUser(username, password)){
+                        clientSocket.sendMsg("1");
+                        isLogged = true;
+                    } else {
+                        clientSocket.sendMsg("0");
+                    }
+
+                }
+                else {
+                    clientSocket.sendMsg("Mensagem recebida: " + msg);
                 }
 
-                String username = msgSplit[0];
-                String password = msgSplit[1];
-
-                if (loginUser(username, password)){
-                    clientSocket.sendMsg("1");
-                } else {
-                    clientSocket.sendMsg("0");
-                }
 
             }
         }
