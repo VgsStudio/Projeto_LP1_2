@@ -41,7 +41,7 @@ public class ClientSocket {
         }
     }
 
-    public boolean SendMsg(String msg){
+    public boolean sendMsg(String msg){
         saida.println(msg);
         return !saida.checkError();
     }

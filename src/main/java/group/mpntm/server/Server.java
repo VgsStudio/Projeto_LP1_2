@@ -4,6 +4,8 @@ import group.mpntm.client.ClientSocket;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class Server {
     public static final String ADDRESS = "127.0.0.1"; // IP Address local do servidor
@@ -34,7 +36,23 @@ public class Server {
         String msg;
         try{
             while((msg = clientSocket.getMessage()) != null && !msg.equals("sair")){
-                System.out.printf("Mensagem recebida do cliente %s: %s\n", clientSocket.getRemoteSocketAddress(), msg);
+
+                String[] msgSplit = msg.split(" ");
+
+                if (msgSplit.length != 2){
+                    clientSocket.sendMsg("Erro: Formato de mensagem inválido!");
+                    continue;
+                }
+
+                String username = msgSplit[0];
+                String password = msgSplit[1];
+
+                if (loginUser(username, password)){
+                    clientSocket.sendMsg("1");
+                } else {
+                    clientSocket.sendMsg("0");
+                }
+
             }
         }
         finally {
@@ -45,7 +63,11 @@ public class Server {
     public boolean loginUser(String username, String password){
 
         // TODO: implementar a lógica de login
-        return true;
+
+        if (Objects.equals(username, "admin") && Objects.equals(password, "admin")) {
+            return true;
+        }
+        return false;
     }
 
 

@@ -2,15 +2,18 @@ package group.mpntm.client;
 
 import group.mpntm.server.Server;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Client {
     private Socket clientSocket;
     private Scanner scanner;
     private PrintWriter saida;
+    private BufferedReader entrada;
 
     public Client(){
         scanner = new Scanner(System.in);
@@ -19,6 +22,7 @@ public class Client {
     public void start() throws IOException{
         clientSocket = new Socket(Server.ADDRESS, Server.PORT);
         saida = new PrintWriter(clientSocket.getOutputStream(), true);
+        entrada = new BufferedReader(new java.io.InputStreamReader(clientSocket.getInputStream()));
         System.out.println("Cliente " + Server.ADDRESS + ":" + Server.PORT + " conectado ao servidor!");
         messageLoop();
     }
@@ -30,6 +34,7 @@ public class Client {
             System.out.print("Digite uma mensagem (ou <sair> para finalizar): ");
             msg = scanner.nextLine();
             saida.println(msg);
+            System.out.println(entrada.readLine());
         }while(!msg.equals("<sair>"));
     }
 
