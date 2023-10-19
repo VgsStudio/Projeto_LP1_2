@@ -62,7 +62,11 @@ public class Client {
         System.out.println("====== Console do Cliente ======");
         try {
             Client client = new Client();
-            client.start("admin", "admin");
+            if (client.start("admin", "admin") == 0){
+                System.out.println("Erro ao iniciar o cliente!");
+            } else {
+                System.out.println("Cliente iniciado com sucesso!");
+            };
         } catch (IOException e) {
             System.out.println("Erro ao iniciar o cliente: " + e.getMessage());
         }
