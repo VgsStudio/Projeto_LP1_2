@@ -2,20 +2,19 @@ package group.mpntm.client;
 
 import javax.swing.*;
 
-public class ClientScreen extends JPanel {
+public class ClientScreen extends JFrame {
     private JLabel label;
 
 
-    public ClientScreen() {
+    public ClientScreen(Client client) {
         label = new JLabel("TODO: Implementar Login ");
         add(label);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(300, 300);
+        setVisible(true);
+
+        setLocationRelativeTo(null);
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("ClientScreen");
-        frame.setContentPane(new ClientScreen());
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    }
 }
