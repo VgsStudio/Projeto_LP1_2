@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4d512f01-4fe0-4840-9c0a-105318b459bd" name="Changes" comment="first commit">
-      <change afterPath="$PROJECT_DIR$/src/main/java/group/mpntm/client/Client.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/group/mpntm/client/ClientSocket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/group/mpntm/server/Server.java" afterDir="false" />
-    </list>
+    <list default="true" id="4d512f01-4fe0-4840-9c0a-105318b459bd" name="Changes" comment="add jdbc connector" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,16 +29,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Users/21.01444-2/Downloads/Projeto_LP1_2/lib/mysql-connector-j-8.0.33.jar",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "settings.sync"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\21.01444-2\Downloads\Projeto_LP1_2\lib" />
+      <recent name="C:\Users\21.01444-2\Downloads\Projeto_LP1_2\src\main\java\group\mpntm\server" />
+    </key>
+  </component>
   <component name="RunManager" selected="Application.Server">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="group.mpntm.client.Client" />
@@ -93,12 +97,36 @@
       <option name="project" value="LOCAL" />
       <updated>1697718227905</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add client and server base files">
+      <created>1697718567163</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1697718567163</updated>
+    </task>
+    <task id="LOCAL-00003" summary="remove unecessary txt">
+      <created>1697718694552</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1697718694552</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add jdbc connector">
+      <created>1697718781872</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1697718781872</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="first commit" />
+    <MESSAGE value="add client and server base files" />
+    <MESSAGE value="remove unecessary txt" />
+    <MESSAGE value="add jdbc connector" />
+    <option name="LAST_COMMIT_MESSAGE" value="add jdbc connector" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
