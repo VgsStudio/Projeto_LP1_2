@@ -29,7 +29,6 @@ public class Client {
 
         if (response == 1){
             System.out.println("Login realizado com sucesso!");
-            messageLoop();
             return 1;
         } else {
             System.out.println("Erro ao realizar o login!");
@@ -38,6 +37,15 @@ public class Client {
         }
 
     }
+
+    public void stop() throws IOException{
+        clientSocket.close();
+    }
+
+    public void requestInfo(){
+
+    }
+
 
     public int loginUser(String login, String password) throws IOException {
         String encryptedPass = encryptPassword(password);
