@@ -1,6 +1,7 @@
 package group.mpntm.client;
 
 import group.mpntm.server.Server;
+import group.mpntm.share.cripto.Criptography;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -83,7 +84,13 @@ public class Client {
     }
 
     private String encryptPassword(String password){
-        String encryptedPass = password; // TODO: Criptografar a senha
-        return encryptedPass;
+        
+        try {
+            String encryptedPass = Criptography.encryptRSA(password); 
+            return encryptedPass;
+        } catch (Exception e) {
+            System.out.println("Erro ao criptografar a senha: " + e.getMessage());
+            return "-1";
+        }
     }
 }

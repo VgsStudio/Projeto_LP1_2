@@ -73,11 +73,13 @@ public class Server {
     public boolean loginUser(String username, String password){
 
         // TODO: implementar a lógica de login
+        System.out.println("Login: " + username + " " + password);
+        return true;
 
-        if (Objects.equals(username, "admin") && Objects.equals(password, "admin")) {
-            return true;
-        }
-        return false;
+        // if (Objects.equals(username, "admin") && Objects.equals(password, "admin")) {
+        //     return true;
+        // }
+        // return false;
     }
 
 
