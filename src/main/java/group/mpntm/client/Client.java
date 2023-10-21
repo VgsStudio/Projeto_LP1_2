@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Client {
-    private Socket clientSocket;
+    private Socket clientSocket; 
     private Scanner scanner;
     private PrintWriter saida;
     private BufferedReader entrada;
