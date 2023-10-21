@@ -1,11 +1,11 @@
 package group.mpntm.client;
 
-import org.knowm.xchart.QuickChart;
-import org.knowm.xchart.SwingWrapper;
-import org.knowm.xchart.XChartPanel;
-import org.knowm.xchart.XYChart;
+import org.knowm.xchart.*;
 
 import javax.swing.*;
+import java.awt.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 
 public class Chart extends JFrame {
@@ -13,10 +13,12 @@ public class Chart extends JFrame {
     private JButton button;
     public SwingWrapper<XYChart> sw;
     public JPanel chartPanel;
-    public XYChart chart;
-    public int i = 0;
-    LinkedList <Double> fifo = new LinkedList<Double>();
-    LinkedList <Double> col = new LinkedList<Double>();
+    public OHLCChart chart;
+    public LinkedList<Candle> fifo = new LinkedList<>();
+    public LinkedList<Double> xData = new LinkedList<>();
+
+    int col = 0;
+
 
     public Chart() {
         label = new JLabel("TODO: Implementar Login ");
@@ -26,13 +28,27 @@ public class Chart extends JFrame {
         panel.add(button);
 
         // Create Chart
-        chart = QuickChart.getChart("SwingWorker XChart Real-time Demo", "Time", "Value", "series", new double[] { 2 }, new double[] { 0 });
+        chart = new OHLCChartBuilder().width(800).height(600).title("OHLCChart").build();
+        Candle candle = new Candle();
+        xData.add((double) xData.size());
+        fifo.add(candle);
+        chart.addSeries("series", xData.stream().mapToDouble(Double::doubleValue).toArray(), fifo.stream().mapToDouble(Candle::getOpen).toArray(), fifo.stream().mapToDouble(Candle::getHigh).toArray(), fifo.stream().mapToDouble(Candle::getLow).toArray(), fifo.stream().mapToDouble(Candle::getClose).toArray())
+                .setDownColor(Color.RED)
+                .setUpColor(Color.GREEN);
         chart.getStyler().setLegendVisible(false);
+
         chart.getStyler().setXAxisLabelRotation(45);
-        chart.getStyler().setxAxisTickLabelsFormattingFunction(value -> String.format("%.0f", value));
+
+        chart.getStyler()
+                .setxAxisTickLabelsFormattingFunction(
+                        x -> candle.getDate().plusDays(x.longValue()).format(DateTimeFormatter.ofPattern("yyyy LLL dd"))
+                );
+
+        chart.getStyler().setToolTipsEnabled(true);
+
 
         // Show it
-        chartPanel = new XChartPanel<XYChart>(chart);
+        chartPanel = new XChartPanel<OHLCChart>(chart);
         add(chartPanel);
         add(panel);
 
@@ -46,9 +62,7 @@ public class Chart extends JFrame {
 
         button.addActionListener(e -> {
             try {
-                int random = (int) (Math.random() * 100);
-                addPoint(i, random);
-                i++;
+                addPoint();
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -56,12 +70,25 @@ public class Chart extends JFrame {
     }
 
 
-    public void addPoint(double x, double y) {
-        fifo.add(y);
-        col.add(x);
-        chart.updateXYSeries("series", col, fifo, null);
-        // change chart scale
+    public void addPoint() {
+
+        Candle candle = new Candle();
+        xData.add((double) ++col);
+        candle.setOpen(fifo.get(fifo.size() - 1).getClose());
+        fifo.add(candle);
+        if (fifo.size() > 20) {
+            fifo.removeFirst();
+        }
+        if (xData.size() > 20) {
+            xData.removeFirst();
+        }
+
+
+        chart.updateOHLCSeries("series", xData.stream().mapToDouble(Double::doubleValue).toArray(), fifo.stream().mapToDouble(Candle::getOpen).toArray(), fifo.stream().mapToDouble(Candle::getHigh).toArray(), fifo.stream().mapToDouble(Candle::getLow).toArray(), fifo.stream().mapToDouble(Candle::getClose).toArray())
+                .setDownColor(Color.RED)
+                .setUpColor(Color.GREEN);
 
         chartPanel.repaint();
+
     }
 }
