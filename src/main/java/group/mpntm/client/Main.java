@@ -24,6 +24,7 @@ public class Main {
 
         Client client = new Client();
         ClientScreen clientScreen = new ClientScreen(client);
+        clientScreen.setVisible(true);
 
 
 //
