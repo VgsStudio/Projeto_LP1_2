@@ -14,7 +14,7 @@ public class Client {
     private Scanner scanner;
     private PrintWriter saida;
     private BufferedReader entrada;
-
+    
     public Client(){
         scanner = new Scanner(System.in);
     }
