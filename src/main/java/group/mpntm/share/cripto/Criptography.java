@@ -34,7 +34,7 @@ public class Criptography {
             e.printStackTrace();
         }
 
-        String mensagem = "Andre eh muito engracado 123";
+        String mensagem = "admin";
         try {
             String msgCript = encryptRSA(mensagem);
             String msgDecrypt = decryptRSA(msgCript);
