@@ -49,7 +49,7 @@ public class Client {
 
     public int loginUser(String login, String password) throws IOException {
         String encryptedPass = encryptPassword(password);
-        saida.println(login + " " + encryptedPass);
+        saida.println(login + " " + encryptedPass + " ;");
         String response = entrada.readLine();
         return Integer.parseInt(response);
     }
@@ -65,6 +65,7 @@ public class Client {
             System.out.println(entrada.readLine());
         }while(!msg.equals("<sair>"));
     }
+
 
     public static void main(String[] args) {
         System.out.println("====== Console do Cliente ======");
@@ -86,6 +87,7 @@ public class Client {
         
         try {
             String encryptedPass = Criptography.encryptRSA(password); 
+            System.out.println("Senha criptografada: " + encryptedPass);
             return encryptedPass;
         } catch (Exception e) {
             System.out.println("Erro ao criptografar a senha: " + e.getMessage());

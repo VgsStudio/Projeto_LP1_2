@@ -27,12 +27,12 @@ public class Criptography {
     private static String privateKeyPath = "src\\main\\java\\group\\mpntm\\share\\cripto\\chave.privada";
 
     public static void main(String[] args) {
-        try{
-            generatePubPrivKeys();
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+        // try{
+        //     generatePubPrivKeys();
+        // }
+        // catch (Exception e){
+        //     e.printStackTrace();
+        // }
 
         String mensagem = "admin";
         try {

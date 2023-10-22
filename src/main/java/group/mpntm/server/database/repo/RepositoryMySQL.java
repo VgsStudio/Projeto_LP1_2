@@ -12,22 +12,22 @@ public class RepositoryMySQL {
 
     public static void main(String[] args) {
         // Test create login for admin
-        // createLogin("admin", "admin");
+        createLogin("joaobranco", "teste123!");
 
-        // Test get pass for admin
-        String pass = getPass("admin");
-        System.out.println("Senha do admin criptografada: " + pass);
-        String passDecrypt;
-        try {
-            passDecrypt = Criptography.decryptRSA(pass);
-        } catch (Exception e) {
-            passDecrypt = "Deu merda";
-        }
-        System.out.println("Senha do admin descriptografada: " + passDecrypt);
+        // // Test get pass for admin
+        // String pass = getPass("admin");
+        // System.out.println("Senha do admin criptografada: " + pass);
+        // String passDecrypt;
+        // try {
+        //     passDecrypt = Criptography.decryptRSA(pass);
+        // } catch (Exception e) {
+        //     passDecrypt = "Deu merda";
+        // }
+        // System.out.println("Senha do admin descriptografada: " + passDecrypt);
 
-        // Test get pass for non existent user
-        String pass2 = getPass("nonexistent");
-        System.out.println("Senha do nonexistent criptografada: " + pass2);
+        // // Test get pass for non existent user
+        // String pass2 = getPass("nonexistent");
+        // System.out.println("Senha do nonexistent criptografada: " + pass2);
     }
 
     public static void createLogin(String name, String password) {
@@ -40,7 +40,6 @@ public class RepositoryMySQL {
             
             stmt = conn.prepareStatement(sqlInsert);
             stmt.setString(1, name);
-            System.out.println(encryptPass);
             stmt.setString(2, encryptPass);
             stmt.executeUpdate();
         }
