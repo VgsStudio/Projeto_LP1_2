@@ -20,16 +20,15 @@ public class Chart extends JFrame {
     int col = 0;
 
 
-    public Chart() {
+    public void go(String title) {
         label = new JLabel("TODO: Implementar Login ");
         button = new JButton("Login");
         JPanel panel = new JPanel();
         panel.add(label);
         panel.add(button);
 
-        // Create Chart
-        chart = new OHLCChartBuilder().width(800).height(600).title("OHLCChart").build();
-        Candle candle = new Candle();
+        chart = new OHLCChartBuilder().width(800).height(600).title(title).build();
+        Candle candle = new Candle(0, 0, 0, 0, LocalDateTime.now());
         xData.add((double) xData.size());
         fifo.add(candle);
         chart.addSeries("series", xData.stream().mapToDouble(Double::doubleValue).toArray(), fifo.stream().mapToDouble(Candle::getOpen).toArray(), fifo.stream().mapToDouble(Candle::getHigh).toArray(), fifo.stream().mapToDouble(Candle::getLow).toArray(), fifo.stream().mapToDouble(Candle::getClose).toArray())
@@ -49,8 +48,8 @@ public class Chart extends JFrame {
 
         // Show it
         chartPanel = new XChartPanel<OHLCChart>(chart);
+//        add(panel);
         add(chartPanel);
-        add(panel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 300);
@@ -59,22 +58,12 @@ public class Chart extends JFrame {
         pack();
 
         setLocationRelativeTo(null);
-
-        button.addActionListener(e -> {
-            try {
-                addPoint();
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        });
     }
 
 
-    public void addPoint() {
+    public void addPoint(Candle candle) {
 
-        Candle candle = new Candle();
         xData.add((double) ++col);
-        candle.setOpen(fifo.get(fifo.size() - 1).getClose());
         fifo.add(candle);
         if (fifo.size() > 20) {
             fifo.removeFirst();

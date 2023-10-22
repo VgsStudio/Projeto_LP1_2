@@ -59,7 +59,29 @@ public class Server {
 
                 }
                 else {
-                    clientSocket.sendMsg("Mensagem recebida: " + msg);
+                    if (msg.equals("info")){
+
+                        clientSocket.sendMsg("days 1 brasil 2021-01-01");
+
+
+                        try {
+                            while (true){
+                                Thread.sleep(1000);
+
+                                int random = (int) (Math.random() * 100);
+                                int open = random;
+                                int close = (int) (random + Math.random() * 10);
+                                int high = (int) (close + Math.random() * 10);
+                                int low = (int) (open - Math.random() * 10);
+
+
+                                clientSocket.sendMsg(open + " " + close + " " + high + " " + low);
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
                 }
 
 

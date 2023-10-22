@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -42,7 +43,50 @@ public class Client {
         clientSocket.close();
     }
 
-    public void requestInfo(){
+    public void requestInfo(Chart chart){
+
+        saida.println("info");
+        String response;
+        try {
+
+            response = entrada.readLine();
+
+            String[] msgSplit = response.split(" ");
+            if (msgSplit.length != 4){
+                System.out.println("Erro: Formato de mensagem inválido!");
+                return;
+            }
+
+            String period = msgSplit[0];
+            String interval = msgSplit[1];
+            String title = msgSplit[2];
+            String start = msgSplit[3];
+
+            chart.go(title);
+
+            while((response = entrada.readLine()) != null){
+                if (response.equals("end")){
+                    break;
+                }
+                msgSplit = response.split(" ");
+                if (msgSplit.length != 4){
+                    System.out.println("Erro: Formato de mensagem inválido!");
+                    continue;
+                }
+                double open = Double.parseDouble(msgSplit[0]);
+                double close = Double.parseDouble(msgSplit[1]);
+                double high = Double.parseDouble(msgSplit[2]);
+                double low = Double.parseDouble(msgSplit[3]);
+                LocalDateTime date = LocalDateTime.now();
+                Candle candle = new Candle(open, close, high, low, date);
+                chart.addPoint(candle);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
 
     }
 
