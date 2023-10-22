@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Client {
@@ -57,11 +58,12 @@ public class Client {
             }
 
             String period = msgSplit[0];
-            String interval = msgSplit[1];
+            int interval = Integer.parseInt(msgSplit[1]);
             String title = msgSplit[2];
-            String start = msgSplit[3];
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm");
+            LocalDateTime start = LocalDateTime.parse(msgSplit[3], formatter);
 
-            chart.go(title);
+            chart.go(title, period, interval, start);
 
             while((response = entrada.readLine()) != null){
                 if (response.equals("end")){

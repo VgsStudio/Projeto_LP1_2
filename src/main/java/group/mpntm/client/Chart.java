@@ -20,7 +20,7 @@ public class Chart extends JFrame {
     int col = 0;
 
 
-    public void go(String title) {
+    public void go(String title, String period, int interval, LocalDateTime start) {
         label = new JLabel("TODO: Implementar Login ");
         button = new JButton("Sair");
 
@@ -32,19 +32,14 @@ public class Chart extends JFrame {
         panel.add(button);
 
         chart = new OHLCChartBuilder().width(800).height(600).title(title).build();
-        Candle candle = new Candle(0, 0, 0, 0, LocalDateTime.now());
-        xData.add((double) xData.size());
-        fifo.add(candle);
-        chart.addSeries("series", xData.stream().mapToDouble(Double::doubleValue).toArray(), fifo.stream().mapToDouble(Candle::getOpen).toArray(), fifo.stream().mapToDouble(Candle::getHigh).toArray(), fifo.stream().mapToDouble(Candle::getLow).toArray(), fifo.stream().mapToDouble(Candle::getClose).toArray())
-                .setDownColor(Color.RED)
-                .setUpColor(Color.GREEN);
+
         chart.getStyler().setLegendVisible(false);
 
         chart.getStyler().setXAxisLabelRotation(45);
 
         chart.getStyler()
                 .setxAxisTickLabelsFormattingFunction(
-                        x -> candle.getDate().plusDays(x.longValue()).format(DateTimeFormatter.ofPattern("yyyy LLL dd"))
+                        x -> start.plusDays(x.longValue() * interval).format(DateTimeFormatter.ofPattern("yyyy LLL dd"))
                 );
 
         chart.getStyler().setToolTipsEnabled(true);
@@ -76,10 +71,13 @@ public class Chart extends JFrame {
             xData.removeFirst();
         }
 
-
-        chart.updateOHLCSeries("series", xData.stream().mapToDouble(Double::doubleValue).toArray(), fifo.stream().mapToDouble(Candle::getOpen).toArray(), fifo.stream().mapToDouble(Candle::getHigh).toArray(), fifo.stream().mapToDouble(Candle::getLow).toArray(), fifo.stream().mapToDouble(Candle::getClose).toArray())
-                .setDownColor(Color.RED)
-                .setUpColor(Color.GREEN);
+        if (chart.getSeriesMap().containsKey("series")) {
+            chart.updateOHLCSeries("series", xData.stream().mapToDouble(Double::doubleValue).toArray(), fifo.stream().mapToDouble(Candle::getOpen).toArray(), fifo.stream().mapToDouble(Candle::getHigh).toArray(), fifo.stream().mapToDouble(Candle::getLow).toArray(), fifo.stream().mapToDouble(Candle::getClose).toArray());
+        } else {
+            chart.addSeries("series", xData.stream().mapToDouble(Double::doubleValue).toArray(), fifo.stream().mapToDouble(Candle::getOpen).toArray(), fifo.stream().mapToDouble(Candle::getHigh).toArray(), fifo.stream().mapToDouble(Candle::getLow).toArray(), fifo.stream().mapToDouble(Candle::getClose).toArray())
+                    .setDownColor(Color.RED)
+                    .setUpColor(Color.GREEN);
+        }
 
         chartPanel.repaint();
 
