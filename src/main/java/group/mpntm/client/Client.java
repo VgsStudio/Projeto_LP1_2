@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Client {
@@ -79,7 +78,7 @@ public class Client {
                 double low = Double.parseDouble(msgSplit[3]);
                 LocalDateTime date = LocalDateTime.now();
                 Candle candle = new Candle(open, close, high, low, date);
-                chart.addPoint(candle);
+                chart.addCandle(candle);
             }
         } catch (IOException e) {
             e.printStackTrace();

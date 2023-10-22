@@ -1,6 +1,9 @@
 package group.mpntm.client;
 //import com.google.code.gson;
 
+import javax.swing.*;
+import java.io.IOException;
+
 public class Main {
 //    private class Person {
 //        public String name;
@@ -21,9 +24,27 @@ public class Main {
             //fire an event sending the server response as argument
         //gui was listening for the event and will handle the success or failure of the login process
         //some the login singleton in the client will be updated with the user data for later use
-
+//
         Client client = new Client();
-        ClientScreen clientScreen = new ClientScreen(client);
+//        ClientScreen clientScreen = new ClientScreen(client);
+        try {
+            client.start("admin", "admin");
+//            double open, double close, double high, double low
+
+
+            Chart chart = new Chart();
+
+            client.requestInfo(chart);
+
+
+
+
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
 
 
 //

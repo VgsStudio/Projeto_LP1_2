@@ -61,7 +61,7 @@ public class Chart extends JFrame {
     }
 
 
-    public void addPoint(Candle candle) {
+    public void addCandle(Candle candle) {
 
         xData.add((double) ++col);
         fifo.add(candle);
