@@ -22,7 +22,11 @@ public class Chart extends JFrame {
 
     public void go(String title) {
         label = new JLabel("TODO: Implementar Login ");
-        button = new JButton("Login");
+        button = new JButton("Sair");
+
+        button.addActionListener(e -> {
+            dispose();
+        });
         JPanel panel = new JPanel();
         panel.add(label);
         panel.add(button);
@@ -48,7 +52,7 @@ public class Chart extends JFrame {
 
         // Show it
         chartPanel = new XChartPanel<OHLCChart>(chart);
-//        add(panel);
+        add(panel);
         add(chartPanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
