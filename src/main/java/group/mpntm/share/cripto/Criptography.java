@@ -23,8 +23,8 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 public class Criptography {
-    private static String publicKeyPath = "/home/felipe/Documents/Lp-Projeto/Projeto_LP1_2/src/main/java/group/mpntm/share/cripto/chave.publica";
-    private static String privateKeyPath = "/home/felipe/Documents/Lp-Projeto/Projeto_LP1_2/src/main/java/group/mpntm/share/cripto/chave.privada";
+    private static String publicKeyPath = "src\\main\\java\\group\\mpntm\\share\\cripto\\chave.publica";
+    private static String privateKeyPath = "src\\main\\java\\group\\mpntm\\share\\cripto\\chave.privada";
 
     public static void main(String[] args) {
         // try{

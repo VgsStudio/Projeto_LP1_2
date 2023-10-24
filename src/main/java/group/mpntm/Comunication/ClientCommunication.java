@@ -2,6 +2,7 @@ package group.mpntm.Comunication;
 
 import group.mpntm.Comunication.Events.LoginButtonPressedEvent;
 import group.mpntm.Comunication.Events.MessageReceivedEvent;
+import group.mpntm.Comunication.MessageHandlers.ClientMessageHandler;
 import group.mpntm.Comunication.MessageImplementations.Client.EncryptedLoginSender;
 import group.mpntm.Comunication.MessageImplementations.IClientMessageImplementation;
 import group.mpntm.Comunication.MessageImplementations.MessageImplementationFactory;
@@ -55,13 +56,11 @@ public class ClientCommunication extends Thread{
                 }
 
                 String msg = entrada.readLine();
-
                 if (msg == null) {
                     continue;
                 }
 
                 Message message = gson.fromJson(msg, Message.class);
-
                 if (message== null){
                     continue;
                 }
@@ -86,9 +85,8 @@ public class ClientCommunication extends Thread{
     }
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
-        var client = new ClientCommunication();
-
-        client.messageReceivedEvent.AddListener(message -> System.out.println(message));
+        ClientCommunication client = new ClientCommunication();
+        ClientMessageHandler clientMessageHandler = new ClientMessageHandler(client);
 
         var imp = MessageImplementationFactory.createMessageImplementationInstance(IClientMessageImplementation.class,EncryptedLoginSender.class.getSimpleName());
         LoginButtonPressedEvent.getInstance().AddListener((username, password) -> {
@@ -123,8 +121,6 @@ public class ClientCommunication extends Thread{
 
         LoginButtonPressedEvent.getInstance().Invoke("admin", "admin");
 
-//        System.out.println(PublicKeySender.class.getSimpleName());
-//        client.SendMessage("Hello World", PublicKeySender.class.getSimpleName());
 
     }
 

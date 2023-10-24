@@ -1,6 +1,7 @@
 package group.mpntm.Comunication.MessageImplementations;
 
 import group.mpntm.Comunication.MessageImplementations.Client.EncryptedLoginSender;
+import group.mpntm.Comunication.MessageImplementations.Client.LoginResponseReceiver;
 import group.mpntm.Comunication.MessageImplementations.Server.EncryptedLoginReceiver;
 import group.mpntm.Comunication.MessageImplementations.Server.PublicKeySender;
 
@@ -19,19 +20,24 @@ public class MessageImplementationFactory {
 
     public static <T> T createMessageImplementationInstance(Class<T> type, String className) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
-        System.out.println(className);
         Class c = null;
 
-        ; //Main.getClassBySimpleName(className);
-        if (className.equals(PublicKeySender.class.getSimpleName()))
+        //Main.getClassBySimpleName(className);
+        if (className.equals(PublicKeySender.class.getSimpleName())){
             c = (Class) PublicKeySender.class;
+        }
 
-        if (className.equals(EncryptedLoginSender.class.getSimpleName()))
+        if (className.equals(EncryptedLoginSender.class.getSimpleName())){
             c = (Class) EncryptedLoginSender.class;
+        }
 
-        if (className.equals(EncryptedLoginReceiver.class.getSimpleName()))
+        if (className.equals(EncryptedLoginReceiver.class.getSimpleName())){
             c = (Class) EncryptedLoginReceiver.class;
-
+        }
+            
+        if (className.equals(LoginResponseReceiver.class.getSimpleName())){
+            c = (Class) LoginResponseReceiver.class;
+        }
 
         var obj = (T) c.newInstance();
         return obj;

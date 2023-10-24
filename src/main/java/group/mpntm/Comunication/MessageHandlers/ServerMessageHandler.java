@@ -17,7 +17,6 @@ public class ServerMessageHandler {
 
     private void OnMessageReceived(ClientProfile clientProfile,Message message){
 
-            System.out.println("server message received: " + message.toString());
         IServerMessageImplementation messageImplementation = null;
         try {
             messageImplementation = MessageImplementationFactory.createMessageImplementationInstance(IServerMessageImplementation.class,message.messageType);
