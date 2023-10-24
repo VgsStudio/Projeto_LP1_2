@@ -3,7 +3,6 @@ package group.mpntm.client;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemListener;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.awt.event.ItemEvent;
 
@@ -17,45 +16,29 @@ public class ClientScreen extends JFrame {
     private String username,password, userLable, passLable, langTxt, index; 
     private JComboBox<String> langDropdown;
     private ResourceBundle bn;
+    private LangChooser langChooser = new LangChooser();
 
     public ClientScreen(Client client) {
+
         langTxt = "Idioma";
         langLabel = new JLabel(langTxt);
         String[] lang = {"English","Deutsch", "Español", "Português","日本" }; 
         langDropdown = new JComboBox<>(lang);
-        langDropdown.addItemListener
-        (  new ItemListener()
-           {  // Manipula o evento da JComboBox
-              public void itemStateChanged( ItemEvent event )       
-              {  // Determine se check box foi selecionado          
-                 if ( event.getStateChange() == ItemEvent.SELECTED ){  
-                    index = lang[ItemEvent.SELECTED];
-                    switch ( index ){
-                        case "English":
-                            bn = ResourceBundle.getBundle("bundle", Locale.US);
-                        break;
-                         case  "Português": 
-                            bn = ResourceBundle.getBundle("bundle", new Locale("pt", "BR"));
-                        break;
-                        case  "Deutsch": 
-                            bn = ResourceBundle.getBundle("bundle", Locale.GERMAN);
-                        break;
-                        case  "Español":
-                            bn = ResourceBundle.getBundle("bundle", new Locale("es","ES"));
-                        break;
-                        case  "日本":
-                            bn = ResourceBundle.getBundle("bundle", Locale.JAPANESE);
-                        break;
-                        default: 
-                            bn = ResourceBundle.getBundle("bundle", new Locale("pt", "BR"));
-                        break;
-                    }
-                    userLable = bn.getString("userLable");
-                    passLable = bn.getString("passLable");
-                    langTxt   = bn.getString("lang");
-                 }
+        langDropdown.addItemListener (  new ItemListener()
+           {
+              public void itemStateChanged( ItemEvent event )
+              {
+                 if ( event.getStateChange() == ItemEvent.SELECTED ){
+                    String op = (String) event.getItem();
 
-              }  
+                    langChooser.chooseLang(op);
+                    bn = langChooser.getBn();
+                    userLable = bn.getString("login.user.label");
+                    passLable = bn.getString("login.password.label");
+                    langTxt = bn.getString("login.language");
+
+                 }
+              }
            }                           
         );                    
         
