@@ -23,7 +23,7 @@ public class ClientScreen extends JFrame {
         langTxt = "Idioma";
         langLabel = new JLabel(langTxt);
 
-        String[] lang = {"English","Deutsch", "Español", "Português","日本" };
+        String[] lang = {"English","Deutsch", "Español", "Português"};
         langDropdown = new JComboBox<>(lang);
         langDropdown.addItemListener (  new ItemListener()
            {

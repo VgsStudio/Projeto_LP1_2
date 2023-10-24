@@ -26,13 +26,10 @@ public class LangChooser {
                             bn = ResourceBundle.getBundle(bundle, new Locale("pt", "BR"));
                         break;
                         case  "Deutsch":
-                            bn = ResourceBundle.getBundle(bundle, Locale.GERMAN);
+                            bn = ResourceBundle.getBundle(bundle, new Locale("de", "DE"));
                         break;
                         case  "Español":
                             bn = ResourceBundle.getBundle(bundle, new Locale("es","ES"));
-                        break;
-                        case  "日本":
-                            bn = ResourceBundle.getBundle(bundle, Locale.JAPANESE);
                         break;
                         default:
                             bn = ResourceBundle.getBundle(bundle, new Locale("pt", "BR"));
