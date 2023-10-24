@@ -1,8 +1,9 @@
 package Comunication.Profiles;
 
-import Comunication.ClientCommunication;
+import Comunication.ClientCommunicationServerSide;
 
 import java.io.IOException;
+import java.net.Socket;
 
 /**
  *  the client profile class is used to store the client's ip,
@@ -12,28 +13,20 @@ import java.io.IOException;
  *
  */
 public class ClientProfile {
-    public String client_ip;
-    public String client_public_key;
-    public String client_private_key;
-    public ClientCommunication clientCommunication;
+    public String clientIp;
+    public Boolean isLogged = false;
+    public ClientCommunicationServerSide clientCommunicationServerSide;
 
-    public ClientProfile(String client_ip) throws IOException {
-        this.client_ip = client_ip;
-//        this.client_public_key = client_public_key;
-//        this.client_private_key = client_private_key;
-        this.clientCommunication = new ClientCommunication();
+    public ClientProfile(Socket socket) throws IOException {
+        this.clientIp = socket.getInetAddress().toString();
+
+        this.clientCommunicationServerSide = new ClientCommunicationServerSide(socket);
     }
 
     @Override
     public String toString() {
         return "ClientProfile{" +
-                "client_ip='" + client_ip + '\'' +
-                ", client_public_key='" + client_public_key + '\'' +
-                ", client_private_key='" + client_private_key + '\'' +
+                "client_ip='" + clientIp + '\'' +
                 '}';
-    }
-
-    public String getPublicKey() {
-        return client_public_key;
     }
 }

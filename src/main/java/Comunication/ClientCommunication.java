@@ -1,6 +1,7 @@
 package Comunication;
 
 import Comunication.Events.MessageReceivedEvent;
+import Comunication.MessageImplementations.Server.PublicKeySender;
 import com.google.gson.Gson;
 import group.mpntm.server.Server;
 
@@ -63,11 +64,16 @@ public class ClientCommunication extends Thread{
 
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
         var client = new ClientCommunication();
 
         client.messageReceivedEvent.AddListener(message -> System.out.println(message));
+
+        Thread.sleep(1000);
+        System.out.println(PublicKeySender.class.getSimpleName());
+        client.SendMessage("Hello World", PublicKeySender.class.getSimpleName());
+
     }
 
     public void SendMessage(String message, String messageType) {

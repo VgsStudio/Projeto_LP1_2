@@ -33,7 +33,7 @@ public class ServerCommunication extends Thread {
         while (true) {
             try {
                 Socket clientSocket = serverSocket.accept();
-                var clientProfile = ClientProfileManager.getInstance().RegisterClientProfile(clientSocket.getInetAddress().toString());
+                var clientProfile = ClientProfileManager.getInstance().RegisterClientProfile(clientSocket);
                 ServerMessageHandler serverMessageHandler = new ServerMessageHandler(clientProfile);
 
                 System.out.println("Cliente " + clientSocket.getInetAddress() + ":" + clientSocket.getPort() + " conectado ao servidor!");

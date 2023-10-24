@@ -12,14 +12,12 @@ public class PublicKeySender implements IServerMessageImplementation {
 
     @Override
     public void Activate(ClientProfile clientProfile, String requestMessageContent) {
-        var gson = new com.google.gson.Gson();
-        var requestMessage = gson.fromJson(requestMessageContent, ServerPublicKeySenderRequestMessage.class);
-        var clientPublicKey = clientProfile.getPublicKey();
+        var gson = new Gson();
+        System.out.println(requestMessageContent);
+        var clientPublicKey = "asdasdasdasdasdas";
 
-        var responseMessage = new ServerPublicKeySenderResponseMessage(clientPublicKey);
-        var responseMessageContent = gson.toJson(responseMessage);
 
-        clientProfile.clientCommunication.SendMessage(responseMessageContent, PublicKeyReceiver.class.getName());
+//        clientProfile.clientCommunicationServerSide.SendMessage(clientPublicKey, PublicKeyReceiver.class.getName());
     }
 
     private class ServerPublicKeySenderRequestMessage {
