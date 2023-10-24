@@ -2,56 +2,73 @@ package group.mpntm.client;
 
 import javax.swing.*;
 import java.awt.*;
-
+import java.awt.event.ItemListener;
+import java.util.ResourceBundle;
+import java.awt.event.ItemEvent;
 
 public class ClientScreen extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JButton loginbtn; 
-    private JLabel usernameLabel, passwordLabel;
-    private JPanel panel;
-    private Arq arq = new Arq();    
-    private Login login = new Login();
-    private String username,password;  
+    private JLabel usernameLabel, passwordLabel, langLabel;
+    private JPanel panel,  upperPanel, lowerPanel;
+    private Login login;
+    private String username,password, userLable, passLable, langTxt, index; 
+    private JComboBox<String> langDropdown;
+    private ResourceBundle bn;
+    private LangChooser langChooser = new LangChooser();
 
     public ClientScreen(Client client) {
-        // utilizando arquivo para pegar tabela de login local
-        arq.read(".\\src\\main\\java\\group\\mpntm\\client", "test.txt");
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300, 300);
-        setVisible(true);
-        setLocationRelativeTo(null);
-        setResizable(false);
+        setLanguageFromTxt();
 
+        langLabel = new JLabel(langTxt);
+
+        String[] lang = {"Português","Deutsch", "Español", "English"};
+        langDropdown = new JComboBox<>(lang);
+        langDropdown.addItemListener (  new ItemListener()
+           {
+              public void itemStateChanged( ItemEvent event )
+              {
+                 if ( event.getStateChange() == ItemEvent.SELECTED ){
+                    String op = (String) event.getItem();
+
+                    langChooser.chooseLang(op);
+                    setLanguage();
+
+
+                 }
+              }
+           }                           
+        );                    
+        
+        
         // Painel principal
         panel = new JPanel();
-        panel.setLayout(new GridBagLayout()); 
+        panel.setLayout(new BorderLayout(5,5)); 
         
         // Rótulos e campos de texto
-        usernameLabel = new JLabel("Usuário:");
+        usernameLabel = new JLabel();
         usernameField = new JTextField(20);
-        passwordLabel = new JLabel("Senha:");
+        passwordLabel = new JLabel();
         passwordField = new JPasswordField(20);
+        setLanguage();
 
         loginbtn = new JButton("Login");
+
+        login = new Login(client);
+
         loginbtn.addActionListener(e -> {
                 try {
                     username = usernameField.getText();
                     password = String.format("%s", new String(passwordField.getPassword()));
-                    if (login.validate(username, password, arq.getMsgList())) {
-                       
+                    if (login.validate(username, password)) {
                         JOptionPane.showMessageDialog(null, "Login Feito com sucesso");
-                        if (client.start("admin", "admin") == 0){
-                            JOptionPane.showMessageDialog(null, "Erro ao realizar o login!");
-                        }
-                    } else if (login.getControl() == 1) {
+                        setVisible(false);
+
+                    } else {
                         setVisible(false);
                         JOptionPane.showMessageDialog(null, "Senha Invalida");
-                        setVisible(true);
-                    } else if (login.getControl() == -1) {
-                        setVisible(false);
-                        JOptionPane.showMessageDialog(null, "Usuario Invalido");
                         setVisible(true);
                     }
                    
@@ -61,43 +78,85 @@ public class ClientScreen extends JFrame {
                 }
             });
 
+        
+
 
         // Configuração das posições dos componentes no painel 
-      
+        upperPanel = new JPanel(new FlowLayout());
+        
+        upperPanel.add(langLabel);
+        upperPanel.add(langDropdown);
+
+        lowerPanel = new JPanel(new GridBagLayout());
+        
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
-       
+        c.anchor = GridBagConstraints.CENTER;
+        c.insets = new Insets(5,2,5,2);
 
         c.gridx = 0;
         c.gridy = 0;
-        panel.add(usernameLabel, c);
+        lowerPanel.add(usernameLabel,c);
 
         c.gridx = 1;
         c.gridy = 0;
-        panel.add(usernameField, c);
+        
+        lowerPanel.add(usernameField,c);
 
         c.gridx = 0;
         c.gridy = 1;
-        panel.add(passwordLabel, c);
+        
+        lowerPanel.add(passwordLabel,c);
 
         c.gridx = 1;
         c.gridy = 1;
-        panel.add(passwordField, c);
-
-
+        
+        lowerPanel.add(passwordField,c);
+        
         c.gridx = 0;
-        c.gridy = 3;
+        c.gridy = 2;
         c.gridwidth = 2; 
-        panel.add(loginbtn, c);
+        lowerPanel.add(loginbtn,c);
+        
+        //upperPanel.setBackground(Color.GREEN);
+        // lowerPanel.setBackground(Color.RED);
 
-        c.gridx = 0;
-        c.gridy = 4;
-        c.gridwidth = 2; 
-        panel.add(loginbtn, c);
-
-        add(panel);
+        panel.add(upperPanel, BorderLayout.NORTH);
+        panel.add(lowerPanel, BorderLayout.CENTER);
 
         
+
+
+        add(panel);
+       
+        
+    
+        // configuradoções da tela
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(300, 300);
+        setVisible(true);
+        setLocationRelativeTo(null);
+        setResizable(false);
+
+        
+    }
+
+    public void setLanguage(){
+        bn = langChooser.getBn();
+        userLable = bn.getString("login.user.label");
+        passLable = bn.getString("login.password.label");
+        langTxt = bn.getString("login.language");
+        usernameLabel.setText(userLable);
+        passwordLabel.setText(passLable);
+        langLabel.setText(langTxt);
+    }
+
+    public void setLanguageFromTxt(){
+
+        String lang = "Português"; // ler de um txt
+        langChooser.chooseLang(lang);
+
+
     }
 
 }
