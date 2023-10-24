@@ -8,9 +8,9 @@ public class Lang {
     private String lang, userLable, passLable, langTxt;   
     private ResourceBundle bn;
 
-    public Lang(){
+    public Lang(String lang){
         
-                    switch ( index ){
+                    switch ( lang ){
                         case "English":
                             bn = ResourceBundle.getBundle("Bundle", Locale.US);
                         break;
@@ -31,5 +31,9 @@ public class Lang {
                         break;
                     }         
 
+    }
+
+    public ResourceBundle getBn() {
+        return bn;
     }
 }
