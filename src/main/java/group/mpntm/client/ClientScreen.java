@@ -2,38 +2,79 @@ package group.mpntm.client;
 
 import javax.swing.*;
 import java.awt.*;
-
+import java.awt.event.ItemListener;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.awt.event.ItemEvent;
 
 public class ClientScreen extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JButton loginbtn; 
-    private JLabel usernameLabel, passwordLabel;
-    private JPanel panel;
+    private JLabel usernameLabel, passwordLabel, langLabel;
+    private JPanel panel,  upperPanel, lowerPanel;
     private Arq arq = new Arq();    
     private Login login = new Login();
-    private String username,password;  
+    private String username,password, userLable, passLable, langTxt, index; 
+    private JComboBox<String> langDropdown;
+    private ResourceBundle bn;
 
     public ClientScreen(Client client) {
         // utilizando arquivo para pegar tabela de login local
         arq.read(".\\src\\main\\java\\group\\mpntm\\client", "test.txt");
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300, 300);
-        setVisible(true);
-        setLocationRelativeTo(null);
-        setResizable(false);
+        // Dropdown de linguas 
+        langTxt = "Idioma"; 
+        langLabel = new JLabel(langTxt);
+        String[] lang = {"English","Deutsch", "Español", "Português","日本" }; 
+        langDropdown = new JComboBox<>(lang);
+        langDropdown.addItemListener
+        (  new ItemListener()
+           {  // Manipula o evento da JComboBox
+              public void itemStateChanged( ItemEvent event )       
+              {  // Determine se check box foi selecionado          
+                 if ( event.getStateChange() == ItemEvent.SELECTED ){  
+                    index = lang[ItemEvent.SELECTED];
+                    switch ( index ){
+                        case "English":
+                            bn = ResourceBundle.getBundle("bundle", Locale.US);
+                        break;
+                         case  "Português": 
+                            bn = ResourceBundle.getBundle("bundle", new Locale("pt", "BR"));
+                        break;
+                        case  "Deutsch": 
+                            bn = ResourceBundle.getBundle("bundle", Locale.GERMAN);
+                        break;
+                        case  "Español":
+                            bn = ResourceBundle.getBundle("bundle", new Locale("es","ES"));
+                        break;
+                        case  "日本":
+                            bn = ResourceBundle.getBundle("bundle", Locale.JAPANESE);
+                        break;
+                        default: 
+                            bn = ResourceBundle.getBundle("bundle", new Locale("pt", "BR"));
+                        break;
+                    }
+                    userLable = bn.getString("userLable");
+                    passLable = bn.getString("passLable");
+                    langTxt   = bn.getString("lang");
+                 }
 
+              }  
+           }                           
+        );                    
+        
+        
         // Painel principal
         panel = new JPanel();
-        panel.setLayout(new GridBagLayout()); 
+        panel.setLayout(new BorderLayout(5,5)); 
         
         // Rótulos e campos de texto
-        usernameLabel = new JLabel("Usuário:");
+        usernameLabel = new JLabel(userLable);
         usernameField = new JTextField(20);
-        passwordLabel = new JLabel("Senha:");
+        passwordLabel = new JLabel(passLable);
         passwordField = new JPasswordField(20);
-
+       
         loginbtn = new JButton("Login");
         loginbtn.addActionListener(e -> {
                 try {
@@ -61,41 +102,65 @@ public class ClientScreen extends JFrame {
                 }
             });
 
+        
+
 
         // Configuração das posições dos componentes no painel 
-      
+        upperPanel = new JPanel(new FlowLayout());
+        
+        upperPanel.add(langLabel);
+        upperPanel.add(langDropdown);
+
+        lowerPanel = new JPanel(new GridBagLayout());
+        
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
-       
+        c.anchor = GridBagConstraints.CENTER;
+        c.insets = new Insets(5,2,5,2);
 
         c.gridx = 0;
         c.gridy = 0;
-        panel.add(usernameLabel, c);
+        lowerPanel.add(usernameLabel,c);
 
         c.gridx = 1;
         c.gridy = 0;
-        panel.add(usernameField, c);
+        
+        lowerPanel.add(usernameField,c);
 
         c.gridx = 0;
         c.gridy = 1;
-        panel.add(passwordLabel, c);
+        
+        lowerPanel.add(passwordLabel,c);
 
         c.gridx = 1;
         c.gridy = 1;
-        panel.add(passwordField, c);
-
-
+        
+        lowerPanel.add(passwordField,c);
+        
         c.gridx = 0;
-        c.gridy = 3;
+        c.gridy = 2;
         c.gridwidth = 2; 
-        panel.add(loginbtn, c);
+        lowerPanel.add(loginbtn,c);
+        
+        //upperPanel.setBackground(Color.GREEN);
+        // lowerPanel.setBackground(Color.RED);
 
-        c.gridx = 0;
-        c.gridy = 4;
-        c.gridwidth = 2; 
-        panel.add(loginbtn, c);
+        panel.add(upperPanel, BorderLayout.NORTH);
+        panel.add(lowerPanel, BorderLayout.CENTER);
+
+        
+
 
         add(panel);
+       
+        
+    
+        // configuradoções da tela
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(300, 300);
+        setVisible(true);
+        setLocationRelativeTo(null);
+        setResizable(false);
 
         
     }
