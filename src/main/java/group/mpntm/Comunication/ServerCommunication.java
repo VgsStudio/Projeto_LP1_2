@@ -1,7 +1,7 @@
-package Comunication;
+package group.mpntm.Comunication;
 
-import Comunication.MessageHandlers.ServerMessageHandler;
-import Comunication.Profiles.ClientProfileManager;
+import group.mpntm.Comunication.MessageHandlers.ServerMessageHandler;
+import group.mpntm.Comunication.Profiles.ClientProfileManager;
 
 import java.io.IOException;
 import java.net.ServerSocket;

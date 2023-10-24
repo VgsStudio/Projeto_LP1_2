@@ -1,6 +1,6 @@
-package Comunication;
+package group.mpntm.Comunication;
 
-import Comunication.Events.MessageReceivedEvent;
+import group.mpntm.Comunication.Events.MessageReceivedEvent;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;

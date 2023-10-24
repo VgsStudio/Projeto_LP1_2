@@ -1,9 +1,9 @@
-package Comunication.MessageHandlers;
+package group.mpntm.Comunication.MessageHandlers;
 
-import Comunication.Profiles.ClientProfile;
-import Comunication.Message;
-import Comunication.MessageImplementations.MessageImplementationFactory;
-import Comunication.MessageImplementations.IServerMessageImplementation;
+import group.mpntm.Comunication.Profiles.ClientProfile;
+import group.mpntm.Comunication.Message;
+import group.mpntm.Comunication.MessageImplementations.MessageImplementationFactory;
+import group.mpntm.Comunication.MessageImplementations.IServerMessageImplementation;
 
 import java.io.IOException;
 

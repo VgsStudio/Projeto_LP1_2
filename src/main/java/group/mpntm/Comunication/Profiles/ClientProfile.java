@@ -1,6 +1,6 @@
-package Comunication.Profiles;
+package group.mpntm.Comunication.Profiles;
 
-import Comunication.ClientCommunicationServerSide;
+import group.mpntm.Comunication.ClientCommunicationServerSide;
 
 import java.io.IOException;
 import java.net.Socket;

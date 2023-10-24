@@ -1,9 +1,9 @@
-package Comunication.MessageHandlers;
+package group.mpntm.Comunication.MessageHandlers;
 
-import Comunication.ClientCommunication;
-import Comunication.Message;
-import Comunication.MessageImplementations.MessageImplementationFactory;
-import Comunication.MessageImplementations.IClientMessageImplementation;
+import group.mpntm.Comunication.ClientCommunication;
+import group.mpntm.Comunication.Message;
+import group.mpntm.Comunication.MessageImplementations.MessageImplementationFactory;
+import group.mpntm.Comunication.MessageImplementations.IClientMessageImplementation;
 
 /**
  * this class is used to handle the messages that are received by the client,

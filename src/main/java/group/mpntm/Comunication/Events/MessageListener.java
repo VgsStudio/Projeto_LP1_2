@@ -1,6 +1,6 @@
-package Comunication.Events;
+package group.mpntm.Comunication.Events;
 
-import Comunication.Message;
+import group.mpntm.Comunication.Message;
 
 public interface MessageListener {
     public void OnMessageReceived(Message message);

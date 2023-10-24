@@ -1,6 +1,6 @@
-package Comunication.MessageImplementations.Client;
+package group.mpntm.Comunication.MessageImplementations.Client;
 
-import Comunication.MessageImplementations.IClientMessageImplementation;
+import group.mpntm.Comunication.MessageImplementations.IClientMessageImplementation;
 
 /**
  * this implementation is used to receive the server's public key.

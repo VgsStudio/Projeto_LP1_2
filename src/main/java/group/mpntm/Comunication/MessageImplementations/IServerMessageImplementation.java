@@ -1,6 +1,6 @@
-package Comunication.MessageImplementations;
+package group.mpntm.Comunication.MessageImplementations;
 
-import Comunication.Profiles.ClientProfile;
+import group.mpntm.Comunication.Profiles.ClientProfile;
 
 /**
  * this interface is used to implement the server message implementations

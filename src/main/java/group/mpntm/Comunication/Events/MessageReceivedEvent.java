@@ -1,6 +1,6 @@
-package Comunication.Events;
+package group.mpntm.Comunication.Events;
 
-import Comunication.Message;
+import group.mpntm.Comunication.Message;
 
 import java.util.HashSet;
 

@@ -1,4 +1,4 @@
-package Comunication;
+package group.mpntm.Comunication;
 
 /**
  * this class is used to send messages between the server and the client

@@ -1,4 +1,4 @@
-package Comunication.MessageImplementations;
+package group.mpntm.Comunication.MessageImplementations;
 
 /**
  * this interface is used to implement the client message implementations

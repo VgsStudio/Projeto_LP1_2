@@ -1,4 +1,4 @@
-package Comunication.Profiles;
+package group.mpntm.Comunication.Profiles;
 
 import java.io.IOException;
 import java.net.Socket;

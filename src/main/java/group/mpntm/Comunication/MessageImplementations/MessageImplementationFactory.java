@@ -1,11 +1,11 @@
-package Comunication.MessageImplementations;
+package group.mpntm.Comunication.MessageImplementations;
 
-import Comunication.MessageImplementations.IClientMessageImplementation;
-import Comunication.MessageImplementations.Server.PublicKeySender;
+import group.mpntm.Comunication.MessageImplementations.Client.EncryptedLoginSender;
+import group.mpntm.Comunication.MessageImplementations.Server.EncryptedLoginReceiver;
+import group.mpntm.Comunication.MessageImplementations.Server.PublicKeySender;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +19,20 @@ public class MessageImplementationFactory {
 
     public static <T> T createMessageImplementationInstance(Class<T> type, String className) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
-        var c= PublicKeySender.class; //Main.getClassBySimpleName(className);
+        System.out.println(className);
+        Class c = null;
+
+        ; //Main.getClassBySimpleName(className);
+        if (className.equals(PublicKeySender.class.getSimpleName()))
+            c = (Class) PublicKeySender.class;
+
+        if (className.equals(EncryptedLoginSender.class.getSimpleName()))
+            c = (Class) EncryptedLoginSender.class;
+
+        if (className.equals(EncryptedLoginReceiver.class.getSimpleName()))
+            c = (Class) EncryptedLoginReceiver.class;
+
+
         var obj = (T) c.newInstance();
         return obj;
     }
