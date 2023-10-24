@@ -1,16 +1,16 @@
 package group.mpntm.client;
 
 import group.mpntm.server.Server;
+import group.mpntm.share.cripto.Criptography;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Client {
-    private Socket clientSocket;
+    private Socket clientSocket; 
     private Scanner scanner;
     private PrintWriter saida;
     private BufferedReader entrada;
@@ -49,7 +49,7 @@ public class Client {
 
     public int loginUser(String login, String password) throws IOException {
         String encryptedPass = encryptPassword(password);
-        saida.println(login + " " + encryptedPass);
+        saida.println(login + " " + encryptedPass + " ;");
         String response = entrada.readLine();
         return Integer.parseInt(response);
     }
@@ -65,6 +65,7 @@ public class Client {
             System.out.println(entrada.readLine());
         }while(!msg.equals("<sair>"));
     }
+
 
     public static void main(String[] args) {
         System.out.println("====== Console do Cliente ======");
@@ -83,7 +84,14 @@ public class Client {
     }
 
     private String encryptPassword(String password){
-        String encryptedPass = password; // TODO: Criptografar a senha
-        return encryptedPass;
+        
+        try {
+            String encryptedPass = Criptography.encryptRSA(password); 
+            System.out.println("Senha criptografada: " + encryptedPass);
+            return encryptedPass;
+        } catch (Exception e) {
+            System.out.println("Erro ao criptografar a senha: " + e.getMessage());
+            return "-1";
+        }
     }
 }
