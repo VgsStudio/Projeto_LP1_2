@@ -13,18 +13,13 @@ public class ClientScreen extends JFrame {
     private JButton loginbtn; 
     private JLabel usernameLabel, passwordLabel, langLabel;
     private JPanel panel,  upperPanel, lowerPanel;
-    private Arq arq = new Arq();    
-    private Login login = new Login();
+    private Login login;
     private String username,password, userLable, passLable, langTxt, index; 
     private JComboBox<String> langDropdown;
     private ResourceBundle bn;
 
     public ClientScreen(Client client) {
-        // utilizando arquivo para pegar tabela de login local
-        arq.read(".\\src\\main\\java\\group\\mpntm\\client", "test.txt");
-
-        // Dropdown de linguas 
-        langTxt = "Idioma"; 
+        langTxt = "Idioma";
         langLabel = new JLabel(langTxt);
         String[] lang = {"English","Deutsch", "Español", "Português","日本" }; 
         langDropdown = new JComboBox<>(lang);
@@ -76,23 +71,20 @@ public class ClientScreen extends JFrame {
         passwordField = new JPasswordField(20);
        
         loginbtn = new JButton("Login");
+
+        login = new Login(client);
+
         loginbtn.addActionListener(e -> {
                 try {
                     username = usernameField.getText();
                     password = String.format("%s", new String(passwordField.getPassword()));
-                    if (login.validate(username, password, arq.getMsgList())) {
-                       
+                    if (login.validate(username, password)) {
                         JOptionPane.showMessageDialog(null, "Login Feito com sucesso");
-                        if (client.start("admin", "admin") == 0){
-                            JOptionPane.showMessageDialog(null, "Erro ao realizar o login!");
-                        }
-                    } else if (login.getControl() == 1) {
+                        setVisible(false);
+
+                    } else {
                         setVisible(false);
                         JOptionPane.showMessageDialog(null, "Senha Invalida");
-                        setVisible(true);
-                    } else if (login.getControl() == -1) {
-                        setVisible(false);
-                        JOptionPane.showMessageDialog(null, "Usuario Invalido");
                         setVisible(true);
                     }
                    
