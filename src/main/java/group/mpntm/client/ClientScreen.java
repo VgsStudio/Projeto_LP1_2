@@ -20,10 +20,9 @@ public class ClientScreen extends JFrame {
 
     public ClientScreen(Client client) {
 
-        langTxt = "Idioma";
         langLabel = new JLabel(langTxt);
 
-        String[] lang = {"English","Deutsch", "Español", "Português"};
+        String[] lang = {"Português","Deutsch", "Español", "English"};
         langDropdown = new JComboBox<>(lang);
         langDropdown.addItemListener (  new ItemListener()
            {
@@ -33,14 +32,7 @@ public class ClientScreen extends JFrame {
                     String op = (String) event.getItem();
 
                     langChooser.chooseLang(op);
-                    bn = langChooser.getBn();
-                    userLable = bn.getString("login.user.label");
-                    passLable = bn.getString("login.password.label");
-                    langTxt = bn.getString("login.language");
-
-                    usernameLabel.setText(userLable);
-                    passwordLabel.setText(passLable);
-                    langLabel.setText(langTxt);
+                    setLanguage();
 
 
                  }
@@ -54,11 +46,12 @@ public class ClientScreen extends JFrame {
         panel.setLayout(new BorderLayout(5,5)); 
         
         // Rótulos e campos de texto
-        usernameLabel = new JLabel(userLable);
+        usernameLabel = new JLabel();
         usernameField = new JTextField(20);
-        passwordLabel = new JLabel(passLable);
+        passwordLabel = new JLabel();
         passwordField = new JPasswordField(20);
-       
+        setLanguage();
+
         loginbtn = new JButton("Login");
 
         login = new Login(client);
@@ -144,6 +137,16 @@ public class ClientScreen extends JFrame {
         setResizable(false);
 
         
+    }
+
+    public void setLanguage(){
+        bn = langChooser.getBn();
+        userLable = bn.getString("login.user.label");
+        passLable = bn.getString("login.password.label");
+        langTxt = bn.getString("login.language");
+        usernameLabel.setText(userLable);
+        passwordLabel.setText(passLable);
+        langLabel.setText(langTxt);
     }
 
 }
