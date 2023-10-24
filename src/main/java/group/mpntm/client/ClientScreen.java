@@ -22,7 +22,8 @@ public class ClientScreen extends JFrame {
 
         langTxt = "Idioma";
         langLabel = new JLabel(langTxt);
-        String[] lang = {"English","Deutsch", "Español", "Português","日本" }; 
+
+        String[] lang = {"English","Deutsch", "Español", "Português","日本" };
         langDropdown = new JComboBox<>(lang);
         langDropdown.addItemListener (  new ItemListener()
            {
@@ -36,6 +37,11 @@ public class ClientScreen extends JFrame {
                     userLable = bn.getString("login.user.label");
                     passLable = bn.getString("login.password.label");
                     langTxt = bn.getString("login.language");
+
+                    usernameLabel.setText(userLable);
+                    passwordLabel.setText(passLable);
+                    langLabel.setText(langTxt);
+
 
                  }
               }
