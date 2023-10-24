@@ -61,7 +61,7 @@ public class Server {
                 else {
                     if (msg.equals("info")){
 
-                        clientSocket.sendMsg("days 1 brasil 2021-01-01");
+                        clientSocket.sendMsg("days 1 brasil 2021-01-01-00:00");
 
 
                         try {
