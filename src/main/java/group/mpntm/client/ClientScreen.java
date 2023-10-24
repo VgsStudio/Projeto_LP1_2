@@ -20,6 +20,8 @@ public class ClientScreen extends JFrame {
 
     public ClientScreen(Client client) {
 
+        setLanguageFromTxt();
+
         langLabel = new JLabel(langTxt);
 
         String[] lang = {"Português","Deutsch", "Español", "English"};
@@ -147,6 +149,14 @@ public class ClientScreen extends JFrame {
         usernameLabel.setText(userLable);
         passwordLabel.setText(passLable);
         langLabel.setText(langTxt);
+    }
+
+    public void setLanguageFromTxt(){
+
+        String lang = "Português"; // ler de um txt
+        langChooser.chooseLang(lang);
+
+
     }
 
 }
