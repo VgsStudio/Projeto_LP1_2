@@ -1,4 +1,4 @@
-package group.mpntm.server.connector;
+package group.mpntm.server.database.connector;
 
 import java.sql.*;
 
