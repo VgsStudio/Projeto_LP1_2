@@ -104,7 +104,7 @@ public class ClientCommunication extends Thread{
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
-            LoginContent loginContent = new LoginContent(username,encryptedPassword);
+            LoginContent loginContent = new LoginContent(username, encryptedPassword);
 
             var json = new Gson().toJson(loginContent);
 
@@ -114,8 +114,6 @@ public class ClientCommunication extends Thread{
         Thread.sleep(1000);
 
         LoginButtonPressedEvent.getInstance().Invoke("admin", "admin");
-
-
     }
 
     public void SendMessage(String message, String messageType) {
@@ -123,6 +121,5 @@ public class ClientCommunication extends Thread{
         Message msg = new Message(message, messageType);
         String json = gson.toJson(msg);
         saida.println(json);
-
     }
 }

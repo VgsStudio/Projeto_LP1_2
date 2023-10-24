@@ -1,6 +1,9 @@
 package group.mpntm.client;
 
 import javax.swing.*;
+
+import group.mpntm.Comunication.Events.LoginButtonPressedEvent;
+
 import java.awt.*;
 import java.awt.event.ItemListener;
 import java.util.ResourceBundle;
@@ -12,13 +15,12 @@ public class ClientScreen extends JFrame {
     private JButton loginbtn; 
     private JLabel usernameLabel, passwordLabel, langLabel;
     private JPanel panel,  upperPanel, lowerPanel;
-    private Login login;
     private String username,password, userLable, passLable, langTxt, index; 
     private JComboBox<String> langDropdown;
     private ResourceBundle bn;
     private LangChooser langChooser = new LangChooser();
 
-    public ClientScreen(Client client) {
+    public ClientScreen() {
 
         setLanguageFromTxt();
 
@@ -56,27 +58,31 @@ public class ClientScreen extends JFrame {
 
         loginbtn = new JButton("Login");
 
-        login = new Login(client);
 
         loginbtn.addActionListener(e -> {
-                try {
-                    username = usernameField.getText();
-                    password = String.format("%s", new String(passwordField.getPassword()));
-                    if (login.validate(username, password)) {
-                        JOptionPane.showMessageDialog(null, "Login Feito com sucesso");
-                        setVisible(false);
+            try {
 
-                    } else {
-                        setVisible(false);
-                        JOptionPane.showMessageDialog(null, "Senha Invalida");
-                        setVisible(true);
-                    }
-                   
+                username = usernameField.getText();
+                password = String.format("%s", new String(passwordField.getPassword()));
+                
+                LoginButtonPressedEvent.getInstance().Invoke(username, password);
 
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                }
-            });
+                // if (login.validate(username, password)) {
+
+                //     JOptionPane.showMessageDialog(null, "Login Feito com sucesso");
+                //     setVisible(false);
+
+                // } else {
+                //     setVisible(false);
+                //     JOptionPane.showMessageDialog(null, "Senha Invalida");
+                //     setVisible(true);
+                // }
+                
+
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        });
 
         
 

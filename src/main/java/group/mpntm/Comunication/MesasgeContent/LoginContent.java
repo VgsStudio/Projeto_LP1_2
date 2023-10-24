@@ -7,4 +7,10 @@ public class LoginContent{
         this.username = username;
         this.encryptedPassword = encryptedPassword;
     }
+
+    public String toString(){
+        return "Username: " + this.username + " Password: " + this.encryptedPassword;
+    }
+
+   
 }

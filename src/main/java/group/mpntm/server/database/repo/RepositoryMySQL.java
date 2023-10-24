@@ -1,8 +1,16 @@
 package group.mpntm.server.database.repo;
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import group.mpntm.server.database.connector.ConnectorFactory;
 import group.mpntm.share.cripto.Criptography;
@@ -61,26 +69,34 @@ public class RepositoryMySQL {
     }
 
     public static String getPass(String name){
-        String sqlSelect = "SELECT * FROM " + login_table_name + " WHERE name = ?";
-        Connection conn = ConnectorFactory.getConn();
-        PreparedStatement stmt = null;
-        ResultSet rs;
-        String pass = "-1";
-        try{   
-            stmt = conn.prepareStatement(sqlSelect);
-            stmt.setString(1, name);
-            rs = stmt.executeQuery();
-            while(rs.next()){
-                pass = rs.getString("pass");
-            }
+    //     String sqlSelect = "SELECT * FROM " + login_table_name + " WHERE name = ?";
+    //     Connection conn = ConnectorFactory.getConn();
+    //     PreparedStatement stmt = null;
+    //     ResultSet rs;
+    //     String pass = "-1";
+    //     try{   
+    //         stmt = conn.prepareStatement(sqlSelect);
+    //         stmt.setString(1, name);
+    //         rs = stmt.executeQuery();
+    //         while(rs.next()){
+    //             pass = rs.getString("pass");
+    //         }
+    //     }
+    //     catch(SQLException ex){   
+    //         System.out.println("Erro ao consultar os dados" + ex.toString());
+    //     }
+    //     finally{
+    //         ConnectorFactory.closeConn(conn, stmt);
+    //     }       
+    //     return pass;
+    // }
+        try {
+            return Criptography.encryptRSA("admin");
+        } catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException
+        | BadPaddingException | InvalidAlgorithmParameterException | ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+            return "-1";
         }
-        catch(SQLException ex){   
-            System.out.println("Erro ao consultar os dados" + ex.toString());
-        }
-        finally{
-            ConnectorFactory.closeConn(conn, stmt);
-        }       
-        return pass;
     }
 
 }
