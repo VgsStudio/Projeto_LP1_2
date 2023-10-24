@@ -24,9 +24,10 @@ public class ClientProfileManager {
         return instance;
     }
 
-    public ClientProfile RegisterClientProfile(String client_ip) throws IOException {
-        ClientProfile put = clientProfiles.put(client_ip, new ClientProfile(client_ip));
-        return put;
+    public ClientProfile RegisterClientProfile(Socket socket) throws IOException {
+        ClientProfile clientProfile = new ClientProfile(socket);
+        clientProfiles.put(String.valueOf(socket.getInetAddress()),clientProfile );
+        return clientProfile;
     }
 
     public ClientProfile getClient(String clientIp) {

@@ -3,6 +3,7 @@ package Comunication.MessageImplementations.Server;
 import Comunication.Profiles.ClientProfile;
 import Comunication.MessageImplementations.Client.PublicKeyReceiver;
 import Comunication.MessageImplementations.IServerMessageImplementation;
+import com.google.gson.Gson;
 
 /**
  * this implementation is used to send the server's public key to the client.
