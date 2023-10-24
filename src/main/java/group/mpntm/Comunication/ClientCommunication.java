@@ -2,6 +2,7 @@ package group.mpntm.Comunication;
 
 import group.mpntm.Comunication.Events.LoginButtonPressedEvent;
 import group.mpntm.Comunication.Events.MessageReceivedEvent;
+import group.mpntm.Comunication.MesasgeContent.LoginContent;
 import group.mpntm.Comunication.MessageHandlers.ClientMessageHandler;
 import group.mpntm.Comunication.MessageImplementations.Client.EncryptedLoginSender;
 import group.mpntm.Comunication.MessageImplementations.IClientMessageImplementation;
@@ -75,14 +76,7 @@ public class ClientCommunication extends Thread{
 
     }
 
-    public static class LoginContent{
-        public String username;
-        public String encryptedPassword;
-        public LoginContent(String username, String encryptedPassword){
-            this.username = username;
-            this.encryptedPassword = encryptedPassword;
-        }
-    }
+    
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
         ClientCommunication client = new ClientCommunication();

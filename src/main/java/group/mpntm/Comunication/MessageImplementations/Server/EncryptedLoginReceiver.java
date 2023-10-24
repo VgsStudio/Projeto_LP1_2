@@ -2,7 +2,8 @@ package group.mpntm.Comunication.MessageImplementations.Server;
 
 import com.google.gson.Gson;
 import group.mpntm.Comunication.ClientCommunication;
-import group.mpntm.Comunication.ClientCommunication.LoginContent;
+import group.mpntm.Comunication.MesasgeContent.LoginContent;
+import group.mpntm.Comunication.MesasgeContent.LoginContentResponse;
 import group.mpntm.Comunication.MessageImplementations.IServerMessageImplementation;
 import group.mpntm.Comunication.MessageImplementations.Client.LoginResponseReceiver;
 import group.mpntm.Comunication.Profiles.ClientProfile;
@@ -16,17 +17,9 @@ import group.mpntm.share.cripto.Criptography;
  */
 
 public class EncryptedLoginReceiver implements IServerMessageImplementation {
-    public class LoginContentResponse {
-        public boolean value;
-        
-        public LoginContentResponse(boolean response){
-            this.value = response;
-        }
-    }
-
     @Override
     public void Activate(ClientProfile clientProfile, String messageContent) {
-        ClientCommunication.LoginContent loginContent = new Gson().fromJson(messageContent, ClientCommunication.LoginContent.class);
+        LoginContent loginContent = new Gson().fromJson(messageContent, LoginContent.class);
         
         LoginContentResponse loginContentResponse = new LoginContentResponse(validateLogin(loginContent));
 
