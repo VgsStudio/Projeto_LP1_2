@@ -29,6 +29,7 @@ public class ClientScreen extends JFrame {
         LoginSuccessfulEvent.getInstance().AddListener(
             () -> {
                 setVisible(false);
+                loginbtn.setEnabled(true);
                 JOptionPane.showMessageDialog(null, bn.getString("login.successful"), bn.getString("login.login"), JOptionPane.INFORMATION_MESSAGE);
                 setVisible(true);
             }
@@ -36,6 +37,7 @@ public class ClientScreen extends JFrame {
         LoginFailedEvent.getInstance().AddListener(
                     () -> {
                         setVisible(false);
+                        loginbtn.setEnabled(true);
                         JOptionPane.showMessageDialog(null, bn.getString("login.failed"), bn.getString("login.login"), JOptionPane.INFORMATION_MESSAGE);
                         setVisible(true);
                     }
@@ -81,20 +83,15 @@ public class ClientScreen extends JFrame {
 
                 username = usernameField.getText();
                 password = String.format("%s", new String(passwordField.getPassword()));
+
+                if (username.isEmpty() || password.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, bn.getString("login.empty"), bn.getString("login.login"), JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
                 
                 LoginButtonPressedEvent.getInstance().Invoke(username, password);
 
-                // if (login.validate(username, password)) {
-
-                //     JOptionPane.showMessageDialog(null, "Login Feito com sucesso");
-                //     setVisible(false);
-
-                // } else {
-                //     setVisible(false);
-                //     JOptionPane.showMessageDialog(null, "Senha Invalida");
-                //     setVisible(true);
-                // }
-                
+                loginbtn.setEnabled(false);
 
             } catch (Exception exception) {
                 exception.printStackTrace();
