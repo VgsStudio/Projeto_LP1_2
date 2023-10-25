@@ -3,6 +3,8 @@ package group.mpntm.client;
 import javax.swing.*;
 
 import group.mpntm.Comunication.Events.LoginButtonPressedEvent;
+import group.mpntm.Comunication.Events.LoginFailedEvent;
+import group.mpntm.Comunication.Events.LoginSuccessfulEvent;
 
 import java.awt.*;
 import java.awt.event.ItemListener;
@@ -23,6 +25,21 @@ public class ClientScreen extends JFrame {
     public ClientScreen() {
 
         setLanguageFromTxt();
+
+        LoginSuccessfulEvent.getInstance().AddListener(
+            () -> {
+                setVisible(false);
+                JOptionPane.showMessageDialog(null, bn.getString("login.successful"), bn.getString("login.login"), JOptionPane.INFORMATION_MESSAGE);
+                setVisible(true);
+            }
+        );
+        LoginFailedEvent.getInstance().AddListener(
+                    () -> {
+                        setVisible(false);
+                        JOptionPane.showMessageDialog(null, bn.getString("login.failed"), bn.getString("login.login"), JOptionPane.INFORMATION_MESSAGE);
+                        setVisible(true);
+                    }
+                );
 
         langLabel = new JLabel(langTxt);
 
