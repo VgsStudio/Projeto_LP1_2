@@ -66,23 +66,6 @@ public class Client {
         }while(!msg.equals("<sair>"));
     }
 
-
-    public static void main(String[] args) {
-        System.out.println("====== Console do Cliente ======");
-        try {
-            Client client = new Client();
-            if (client.start("admin", "admin") == 0){
-                System.out.println("Erro ao iniciar o cliente!");
-            } else {
-                System.out.println("Cliente iniciado com sucesso!");
-            };
-        } catch (IOException e) {
-            System.out.println("Erro ao iniciar o cliente: " + e.getMessage());
-        }
-        System.out.println("Cliente finalizado!");
-
-    }
-
     private String encryptPassword(String password){
         
         try {
