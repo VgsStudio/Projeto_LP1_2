@@ -18,6 +18,7 @@ public class ClientScreen extends JFrame {
     private ResourceBundle bn;
     private LangChooser langChooser = new LangChooser();
 
+
     public ClientScreen(Client client) {
 
         setLanguageFromTxt();
@@ -35,6 +36,7 @@ public class ClientScreen extends JFrame {
 
                     langChooser.chooseLang(op);
                     setLanguage();
+                    
 
 
                  }
@@ -81,7 +83,7 @@ public class ClientScreen extends JFrame {
         
 
 
-        // Configuração das posições dos componentes no painel 
+        // Configuração das posições dos componentes no frame 
         upperPanel = new JPanel(new FlowLayout());
         
         upperPanel.add(langLabel);
@@ -98,15 +100,17 @@ public class ClientScreen extends JFrame {
         c.gridy = 0;
         lowerPanel.add(usernameLabel,c);
 
-        c.gridx = 1;
-        c.gridy = 0;
-        
-        lowerPanel.add(usernameField,c);
-
         c.gridx = 0;
         c.gridy = 1;
         
         lowerPanel.add(passwordLabel,c);
+
+        c.weightx = 1;
+
+        c.gridx = 1;
+        c.gridy = 0;
+        
+        lowerPanel.add(usernameField,c);
 
         c.gridx = 1;
         c.gridy = 1;
@@ -152,11 +156,8 @@ public class ClientScreen extends JFrame {
     }
 
     public void setLanguageFromTxt(){
-
-        String lang = "Português"; // ler de um txt
-        langChooser.chooseLang(lang);
-
-
+        langChooser.getLastLang();
+       
     }
 
 }
