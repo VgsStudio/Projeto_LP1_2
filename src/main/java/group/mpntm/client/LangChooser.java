@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 
 
 public class LangChooser {
-    private String lang, userLable, passLable, langTxt;   
     private ResourceBundle bn;
 
     public LangChooser(String lang){

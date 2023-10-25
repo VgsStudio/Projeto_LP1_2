@@ -13,7 +13,7 @@ public class ClientScreen extends JFrame {
     private JLabel usernameLabel, passwordLabel, langLabel;
     private JPanel panel,  upperPanel, lowerPanel;
     private Login login;
-    private String username,password, userLable, passLable, langTxt, index; 
+    private String username,password, userLable, passLable, langTxt; 
     private JComboBox<String> langDropdown;
     private ResourceBundle bn;
     private LangChooser langChooser = new LangChooser();

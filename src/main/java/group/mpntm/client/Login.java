@@ -3,8 +3,6 @@ package group.mpntm.client;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Login {
     private int control;
