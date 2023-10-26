@@ -50,7 +50,7 @@ public class ServerCommunication extends Thread {
 
 
     public static void main(String[] args) throws IOException {
-        // RepositoryMySQL.deleteCandleTable();
+        RepositoryMySQL.deleteCandleTable();
         OHLCGenerator ohlcGenerator = new OHLCGenerator();
         ServerCommunication serverCommunication = new ServerCommunication();
 
