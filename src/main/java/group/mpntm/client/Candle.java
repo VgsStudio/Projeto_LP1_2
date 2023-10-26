@@ -1,5 +1,6 @@
 package group.mpntm.client;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -8,9 +9,9 @@ public class Candle {
     private double close;
     private double high;
     private double low;
-    private LocalDateTime date;
+    public String date;
 
-    public Candle(double open, double close, double high, double low, LocalDateTime date) {
+    public Candle(double open, double close, double high, double low, String date) {
         this.open = open;
         this.close = close;
         this.high = high;
@@ -23,7 +24,7 @@ public class Candle {
         this.close = close;
         this.high = high;
         this.low = low;
-        this.date = LocalDateTime.now();
+        this.date = String.valueOf(LocalDate.now());
     }
 
     public Candle() {
@@ -33,7 +34,7 @@ public class Candle {
         this.close = random + Math.random()*10;
         this.high = this.close + Math.random()*10;
         this.low = this.open - Math.random()*10;
-        this.date = LocalDateTime.now().plusDays((long) random);
+        this.date = String.valueOf(LocalDateTime.now().plusDays((long) random));
     }
 
     public double getOpen() {
@@ -69,11 +70,11 @@ public class Candle {
     }
 
 
-    public LocalDateTime getDate() {
+    public String getDate() {
         return this.date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
