@@ -9,6 +9,7 @@ import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
+import java.util.ResourceBundle;
 
 public class Chart extends JFrame {
     private JLabel label;
@@ -18,11 +19,13 @@ public class Chart extends JFrame {
     public OHLCChart chart;
     public LinkedList<Candle> fifo = new LinkedList<>();
     public LinkedList<Double> xData = new LinkedList<>();
+    private ResourceBundle bn;
 
     int col = 0;
 
-    public Chart() {
-        super("Graficuzinho");
+    public Chart(ResourceBundle bn) {
+        super(bn.getString("chart.title"));
+        this.bn = bn;
 
         CandleReceivedEvent.getInstance().AddListener(
                 this::addCandle
@@ -31,15 +34,15 @@ public class Chart extends JFrame {
 
 
     public void go(ChartInitContent content) {
-        label = new JLabel("TODO: Implementar Login ");
-        button = new JButton("Sair");
+//        label = new JLabel("TODO: Implementar Login ");
+//        button = new JButton("Sair");
 
-        button.addActionListener(e -> {
-            dispose();
-        });
-        JPanel panel = new JPanel();
-        panel.add(label);
-        panel.add(button);
+//        button.addActionListener(e -> {
+//            dispose();
+//        });
+//        JPanel panel = new JPanel();
+//        panel.add(label);
+//        panel.add(button);
 
         chart = new OHLCChartBuilder().width(800).height(600).title(content.title).build();
 
@@ -59,7 +62,7 @@ public class Chart extends JFrame {
 
         // Show it
         chartPanel = new XChartPanel<OHLCChart>(chart);
-        add(panel);
+//        add(panel);
         add(chartPanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

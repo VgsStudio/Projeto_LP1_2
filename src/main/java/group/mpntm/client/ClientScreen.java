@@ -45,7 +45,7 @@ public class ClientScreen extends JFrame {
 
         ChartInitEvent.getInstance().AddListener(
             (content) -> {
-                Chart chart = new Chart();
+                Chart chart = new Chart(bn);
                 chart.go(content);
 
             }
