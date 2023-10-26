@@ -20,6 +20,7 @@ public class Chart extends JFrame {
     public LinkedList<Candle> fifo = new LinkedList<>();
     public LinkedList<Double> xData = new LinkedList<>();
     private ResourceBundle bn;
+    private String title;
 
     int col = 0;
 
@@ -45,6 +46,7 @@ public class Chart extends JFrame {
 //        panel.add(button);
 
         chart = new OHLCChartBuilder().width(800).height(600).title(content.title).build();
+        this.title = content.title;
 
         chart.getStyler().setLegendVisible(false);
 
@@ -86,10 +88,10 @@ public class Chart extends JFrame {
             xData.removeFirst();
         }
 
-        if (chart.getSeriesMap().containsKey("series")) {
-            chart.updateOHLCSeries("series", xData.stream().mapToDouble(Double::doubleValue).toArray(), fifo.stream().mapToDouble(Candle::getOpen).toArray(), fifo.stream().mapToDouble(Candle::getHigh).toArray(), fifo.stream().mapToDouble(Candle::getLow).toArray(), fifo.stream().mapToDouble(Candle::getClose).toArray());
+        if (chart.getSeriesMap().containsKey(this.title)) {
+            chart.updateOHLCSeries(this.title, xData.stream().mapToDouble(Double::doubleValue).toArray(), fifo.stream().mapToDouble(Candle::getOpen).toArray(), fifo.stream().mapToDouble(Candle::getHigh).toArray(), fifo.stream().mapToDouble(Candle::getLow).toArray(), fifo.stream().mapToDouble(Candle::getClose).toArray());
         } else {
-            chart.addSeries("series", xData.stream().mapToDouble(Double::doubleValue).toArray(), fifo.stream().mapToDouble(Candle::getOpen).toArray(), fifo.stream().mapToDouble(Candle::getHigh).toArray(), fifo.stream().mapToDouble(Candle::getLow).toArray(), fifo.stream().mapToDouble(Candle::getClose).toArray())
+            chart.addSeries(this.title, xData.stream().mapToDouble(Double::doubleValue).toArray(), fifo.stream().mapToDouble(Candle::getOpen).toArray(), fifo.stream().mapToDouble(Candle::getHigh).toArray(), fifo.stream().mapToDouble(Candle::getLow).toArray(), fifo.stream().mapToDouble(Candle::getClose).toArray())
                     .setDownColor(Color.RED)
                     .setUpColor(Color.GREEN);
         }
