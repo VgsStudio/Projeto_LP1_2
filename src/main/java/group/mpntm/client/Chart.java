@@ -21,12 +21,18 @@ public class Chart extends JFrame {
     public LinkedList<Double> xData = new LinkedList<>();
     private ResourceBundle bn;
     private String title;
+    private JMenu menu;
+    private JMenuBar menuBar;
+    private JMenuItem menuItem;
+    private String[] lang = ClientScreen.lang;
+    private LangChooser langChooser;
 
     int col = 0;
 
-    public Chart(ResourceBundle bn) {
-        super(bn.getString("chart.title"));
-        this.bn = bn;
+    public Chart(LangChooser langChooser) {
+        super(langChooser.getBn().getString("chart.title"));
+        this.bn = langChooser.getBn();
+        this.langChooser = langChooser;
 
         CandleReceivedEvent.getInstance().AddListener(
                 this::addCandle
@@ -44,6 +50,26 @@ public class Chart extends JFrame {
 //        JPanel panel = new JPanel();
 //        panel.add(label);
 //        panel.add(button);
+
+        menu = new JMenu(bn.getString("login.language"));
+        menuBar = new JMenuBar();
+
+
+        // add menu item to each menu
+        for (int i = 0; i < lang.length; i++) {
+            menuItem = new JMenuItem(lang[i]);
+            int finalI = i;
+            menuItem.addActionListener(e -> {
+                langChooser.chooseLang(lang[finalI]);
+                bn = langChooser.getBn();
+                setLanguage();
+            });
+            menu.add(menuItem);
+        }
+
+        menuBar.add(menu);
+        add(menuBar);
+
 
         chart = new OHLCChartBuilder().width(800).height(600).title(content.title).build();
         this.title = content.title;
@@ -98,5 +124,11 @@ public class Chart extends JFrame {
 
         chartPanel.repaint();
 
+    }
+
+    public void setLanguage(){
+        this.setTitle(bn.getString("chart.title"));
+        menu.setText(bn.getString("login.language"));
+        menuItem.setText(bn.getString("login.language"));
     }
 }

@@ -22,6 +22,7 @@ public class ClientScreen extends JFrame {
     private JComboBox<String> langDropdown;
     private ResourceBundle bn;
     private LangChooser langChooser = new LangChooser();
+    public static String[] lang = {"Português","Deutsch", "Español", "English"};
 
     public ClientScreen() {
 
@@ -45,7 +46,7 @@ public class ClientScreen extends JFrame {
 
         ChartInitEvent.getInstance().AddListener(
             (content) -> {
-                Chart chart = new Chart(bn);
+                Chart chart = new Chart(langChooser);
                 chart.go(content);
 
             }
@@ -53,7 +54,7 @@ public class ClientScreen extends JFrame {
 
         langLabel = new JLabel(langTxt);
 
-        String[] lang = {"Português","Deutsch", "Español", "English"};
+
         langDropdown = new JComboBox<>(lang);
         langDropdown.addItemListener (  new ItemListener()
            {
