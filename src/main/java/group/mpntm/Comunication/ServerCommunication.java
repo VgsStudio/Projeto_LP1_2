@@ -5,6 +5,7 @@ import com.mysql.cj.protocol.x.MessageConstants;
 import group.mpntm.Comunication.MessageHandlers.ServerMessageHandler;
 import group.mpntm.Comunication.MessageImplementations.Client.CandleReceiver;
 import group.mpntm.Comunication.Profiles.ClientProfileManager;
+import group.mpntm.server.database.repo.RepositoryMySQL;
 import group.mpntm.server.generator.OHLCGenerator;
 
 import java.io.IOException;
@@ -49,6 +50,7 @@ public class ServerCommunication extends Thread {
 
 
     public static void main(String[] args) throws IOException {
+        RepositoryMySQL.deleteCandleTable();
         OHLCGenerator ohlcGenerator = new OHLCGenerator();
         ServerCommunication serverCommunication = new ServerCommunication();
 
@@ -67,6 +69,13 @@ public class ServerCommunication extends Thread {
 
 
                 }
+        );
+
+        OHLCGenerator.NumberGeneratedEvent.getInstance().AddListener(
+            candle-> {
+                RepositoryMySQL.createCandle(candle);
+
+            }
         );
     }
 }

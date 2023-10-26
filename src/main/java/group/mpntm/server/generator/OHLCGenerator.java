@@ -3,6 +3,7 @@ package group.mpntm.server.generator;
 import group.mpntm.Comunication.Events.LoginButtonPressedEvent;
 import group.mpntm.Comunication.Events.LoginButtonPressedListener;
 import group.mpntm.client.Candle;
+import group.mpntm.server.database.repo.RepositoryMySQL;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -108,11 +109,9 @@ public OHLCGenerator(){
         }
 
     }
+    
     public interface NumberGeneratedListener{
-
-    void onNumberGenerated(Candle candle);
-
-
+        void onNumberGenerated(Candle candle);
     }
 
 }
