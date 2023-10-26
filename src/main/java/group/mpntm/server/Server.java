@@ -4,6 +4,8 @@ import group.mpntm.client.ClientSocket;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -61,7 +63,13 @@ public class Server {
                 else {
                     if (msg.equals("info")){
 
-                        clientSocket.sendMsg("days 1 brasil 2021-01-01-00:00");
+                        LocalDateTime now = LocalDateTime.now();
+
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss");
+
+                        String datetime = now.format(formatter);
+
+                        clientSocket.sendMsg("seconds 1 brasil " + datetime);
 
 
                         try {

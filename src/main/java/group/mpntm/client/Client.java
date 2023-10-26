@@ -60,7 +60,7 @@ public class Client {
             String period = msgSplit[0];
             int interval = Integer.parseInt(msgSplit[1]);
             String title = msgSplit[2];
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss");
             LocalDateTime start = LocalDateTime.parse(msgSplit[3], formatter);
 
             chart.go(title, period, interval, start);

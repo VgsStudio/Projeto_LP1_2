@@ -39,7 +39,7 @@ public class Chart extends JFrame {
 
         chart.getStyler()
                 .setxAxisTickLabelsFormattingFunction(
-                        x -> start.plusDays(x.longValue() * interval).format(DateTimeFormatter.ofPattern("yyyy LLL dd"))
+                        x -> start.plusSeconds(x.longValue() * interval).format(DateTimeFormatter.ofPattern("dd hh:mm:ss"))
                 );
 
         chart.getStyler().setToolTipsEnabled(true);
