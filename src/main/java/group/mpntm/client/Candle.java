@@ -18,6 +18,14 @@ public class Candle {
         this.date = date;
     }
 
+    public Candle(double open, double close, double high, double low) {
+        this.open = open;
+        this.close = close;
+        this.high = high;
+        this.low = low;
+        this.date = LocalDateTime.now();
+    }
+
     public Candle() {
         double random = Math.random()*100;
 
@@ -67,5 +75,9 @@ public class Candle {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public String toString() {
+        return "Open: " + this.open + " Close: " + this.close + " High: " + this.high + " Low: " + this.low + " Date: " + this.date;
     }
 }
