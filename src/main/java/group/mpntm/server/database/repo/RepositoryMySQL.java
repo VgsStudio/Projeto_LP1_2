@@ -49,9 +49,8 @@ public class RepositoryMySQL {
         // deleteCandleTable();
 
         // // Test getAllCandles
-        // List<Candle> candles = tailCandles(1);
+        // List<Candle> candles = tailCandles(50);
         // System.out.println("O tamanho eh: " + candles.size());
-        // System.out.println("A candle eh a: " + candles.get(0).toString());
 
     }
 
