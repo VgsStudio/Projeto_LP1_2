@@ -5,6 +5,7 @@ import group.mpntm.Comunication.Events.LoginButtonPressedListener;
 import group.mpntm.client.Candle;
 
 import java.util.HashSet;
+import java.util.Random;
 
 
 public class OHLCGenerator extends Thread{
@@ -31,21 +32,51 @@ public OHLCGenerator(){
 
         while (true){
             try {
-                Thread.sleep(1000);
+                Thread.sleep(2500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-            double random = Math.random()*100;
+            double random = Math.random();
 
-            open = lastCandle != null ? lastCandle.getClose() : random;
-            close = random + Math.random()*100;
-            high = close + Math.random()*100;
-            low = open - Math.random()*100;
+            if (lastCandle == null) {
+                open = 169;
+                close = 140;
+                high = 200;
+                low = 70;
+
+                lastCandle = new Candle(open, close, high, low);
+            }
+
+
+            open = lastCandle.getClose();
+
+            double correctionScale = 5.0;
+            double randomScale = 0.5;
+
+
+            double factor = (lastCandle.getOpen()/ lastCandle.getClose() - 1.0)/correctionScale + 1.0;
+
+            System.out.println(factor);
+
+            var randomNumber = (Math.random()*2.0-1.0);
+
+            System.out.println(randomNumber);
+
+            close = open * factor + randomScale * randomNumber;
+
+
+            low = (Math.min(open,close)  - (Math.abs(open-close)*0.2 * Math.random()));
+            high = (Math.max(open,close) + (Math.abs(open-close)*0.2 * Math.random()));
+
+            open = Math.round(open * 100.0) / 100.0;
+            close = Math.round(close * 100.0) / 100.0;
+            high = Math.round(high * 100.0) / 100.0;
+            low = Math.round(low * 100.0) / 100.0;
 
             lastCandle = new Candle(open, close, high, low);
 
-//            System.out.println(lastCandle);
+            System.out.println(lastCandle);
 
             NumberGeneratedEvent.getInstance().Invoke(lastCandle);
         }
