@@ -18,7 +18,7 @@ public class ClientProfile {
     public ClientCommunicationServerSide clientCommunicationServerSide;
 
     public ClientProfile(Socket socket) throws IOException {
-        this.clientIp = socket.getInetAddress().toString();
+        this.clientIp = socket.getRemoteSocketAddress().toString();
 
         this.clientCommunicationServerSide = new ClientCommunicationServerSide(socket);
     }

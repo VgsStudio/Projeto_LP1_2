@@ -27,7 +27,7 @@ public class ClientProfileManager {
 
     public ClientProfile RegisterClientProfile(Socket socket) throws IOException {
         ClientProfile clientProfile = new ClientProfile(socket);
-        clientProfiles.put(String.valueOf(socket.getInetAddress()),clientProfile );
+        clientProfiles.put(String.valueOf(socket.getRemoteSocketAddress()),clientProfile );
         return clientProfile;
     }
 
