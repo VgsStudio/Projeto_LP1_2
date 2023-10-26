@@ -1,21 +1,20 @@
 package group.mpntm.client;
 
 import group.mpntm.server.Server;
+import group.mpntm.share.cripto.Criptography;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Client {
-    private Socket clientSocket;
+    private Socket clientSocket; 
     private Scanner scanner;
     private PrintWriter saida;
     private BufferedReader entrada;
-
+    
     public Client(){
         scanner = new Scanner(System.in);
     }
@@ -43,58 +42,14 @@ public class Client {
         clientSocket.close();
     }
 
-    public void requestInfo(Chart chart){
-
-        saida.println("info");
-        String response;
-        try {
-
-            response = entrada.readLine();
-
-            String[] msgSplit = response.split(" ");
-            if (msgSplit.length != 4){
-                System.out.println("Erro: Formato de mensagem inválido!");
-                return;
-            }
-
-            String period = msgSplit[0];
-            int interval = Integer.parseInt(msgSplit[1]);
-            String title = msgSplit[2];
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss");
-            LocalDateTime start = LocalDateTime.parse(msgSplit[3], formatter);
-
-            chart.go(title, period, interval, start);
-
-            while((response = entrada.readLine()) != null){
-                if (response.equals("end")){
-                    break;
-                }
-                msgSplit = response.split(" ");
-                if (msgSplit.length != 4){
-                    System.out.println("Erro: Formato de mensagem inválido!");
-                    continue;
-                }
-                double open = Double.parseDouble(msgSplit[0]);
-                double close = Double.parseDouble(msgSplit[1]);
-                double high = Double.parseDouble(msgSplit[2]);
-                double low = Double.parseDouble(msgSplit[3]);
-                LocalDateTime date = LocalDateTime.now();
-                Candle candle = new Candle(open, close, high, low, date);
-                chart.addCandle(candle);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-
+    public void requestInfo(){
 
     }
 
 
     public int loginUser(String login, String password) throws IOException {
         String encryptedPass = encryptPassword(password);
-        saida.println(login + " " + encryptedPass);
+        saida.println(login + " " + encryptedPass + " ;");
         String response = entrada.readLine();
         return Integer.parseInt(response);
     }
@@ -111,24 +66,15 @@ public class Client {
         }while(!msg.equals("<sair>"));
     }
 
-    public static void main(String[] args) {
-        System.out.println("====== Console do Cliente ======");
-        try {
-            Client client = new Client();
-            if (client.start("admin", "admin") == 0){
-                System.out.println("Erro ao iniciar o cliente!");
-            } else {
-                System.out.println("Cliente iniciado com sucesso!");
-            };
-        } catch (IOException e) {
-            System.out.println("Erro ao iniciar o cliente: " + e.getMessage());
-        }
-        System.out.println("Cliente finalizado!");
-
-    }
-
     private String encryptPassword(String password){
-        String encryptedPass = password; // TODO: Criptografar a senha
-        return encryptedPass;
+        
+        try {
+            String encryptedPass = Criptography.encryptRSA(password); 
+            System.out.println("Senha criptografada: " + encryptedPass);
+            return encryptedPass;
+        } catch (Exception e) {
+            System.out.println("Erro ao criptografar a senha: " + e.getMessage());
+            return "-1";
+        }
     }
 }
