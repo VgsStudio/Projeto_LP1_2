@@ -1,7 +1,6 @@
 package group.mpntm.Comunication.MessageImplementations.Server;
 
 import com.google.gson.Gson;
-import group.mpntm.Comunication.ClientCommunication;
 import group.mpntm.Comunication.MesasgeContent.ChartInitContent;
 import group.mpntm.Comunication.MesasgeContent.LoginContent;
 import group.mpntm.Comunication.MesasgeContent.LoginContentResponse;
@@ -11,6 +10,8 @@ import group.mpntm.Comunication.MessageImplementations.Client.LoginResponseRecei
 import group.mpntm.Comunication.Profiles.ClientProfile;
 import group.mpntm.server.database.repo.RepositoryMySQL;
 import group.mpntm.share.cripto.Criptography;
+
+import java.time.LocalDateTime;
 
 
 /**
@@ -35,7 +36,9 @@ public class EncryptedLoginReceiver implements IServerMessageImplementation {
             throw new RuntimeException(e);
         }
 
-        var chartInitjson = new Gson().toJson(new ChartInitContent("days", 1, "brasil", "2023-10-25-11:19:00"));
+        LocalDateTime date = LocalDateTime.now();
+
+        var chartInitjson = new Gson().toJson(new ChartInitContent("days", 1, "brasil", date.format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss"))));
 
         clientProfile.clientCommunicationServerSide.SendMessage(chartInitjson, ChartInitReceiver.class.getSimpleName());
 
