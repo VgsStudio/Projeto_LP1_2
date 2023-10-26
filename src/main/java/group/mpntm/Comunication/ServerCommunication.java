@@ -57,6 +57,9 @@ public class ServerCommunication extends Thread {
                         var clients = ClientProfileManager.getInstance().getAllClients();
 
                         for (var client : clients) {
+                            if (!client.isLogged){
+                                continue;
+                            }
                             var message = new Gson().toJson(candle);
                             client.clientCommunicationServerSide.SendMessage(message, CandleReceiver.class.getSimpleName());
                         }
