@@ -3,6 +3,7 @@ package group.mpntm.Comunication.Profiles;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * The Client Profile Manager is used to store all the client profiles on the server side.
@@ -26,11 +27,16 @@ public class ClientProfileManager {
 
     public ClientProfile RegisterClientProfile(Socket socket) throws IOException {
         ClientProfile clientProfile = new ClientProfile(socket);
-        clientProfiles.put(String.valueOf(socket.getInetAddress()),clientProfile );
+        clientProfiles.put(String.valueOf(socket.getRemoteSocketAddress()),clientProfile );
         return clientProfile;
     }
 
     public ClientProfile getClient(String clientIp) {
         return clientProfiles.get(clientIp);
+    }
+
+    public List<ClientProfile> getAllClients() {
+
+        return clientProfiles.values().stream().toList();
     }
 }

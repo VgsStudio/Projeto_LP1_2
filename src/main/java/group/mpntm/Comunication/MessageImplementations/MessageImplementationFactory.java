@@ -1,8 +1,12 @@
 package group.mpntm.Comunication.MessageImplementations;
 
+import group.mpntm.Comunication.MessageImplementations.Client.CandleReceiver;
+import group.mpntm.Comunication.MessageImplementations.Client.ChartInitReceiver;
 import group.mpntm.Comunication.MessageImplementations.Client.EncryptedLoginSender;
+import group.mpntm.Comunication.MessageImplementations.Client.HistoryResponseReceiver;
 import group.mpntm.Comunication.MessageImplementations.Client.LoginResponseReceiver;
 import group.mpntm.Comunication.MessageImplementations.Server.EncryptedLoginReceiver;
+import group.mpntm.Comunication.MessageImplementations.Server.HistoryRequestReceiver;
 import group.mpntm.Comunication.MessageImplementations.Server.PublicKeySender;
 
 import java.io.File;
@@ -37,6 +41,18 @@ public class MessageImplementationFactory {
             
         if (className.equals(LoginResponseReceiver.class.getSimpleName())){
             c = (Class) LoginResponseReceiver.class;
+        }
+        if (className.equals(CandleReceiver.class.getSimpleName())){
+            c = (Class) CandleReceiver.class;
+        }
+        if (className.equals(ChartInitReceiver.class.getSimpleName())){
+            c = (Class) ChartInitReceiver.class;
+        }
+        if (className.equals(HistoryResponseReceiver.class.getSimpleName())){
+            c = (Class) HistoryResponseReceiver.class;
+        }
+        if (className.equals(HistoryRequestReceiver.class.getSimpleName())){
+            c = (Class) HistoryRequestReceiver.class;
         }
 
         var obj = (T) c.newInstance();

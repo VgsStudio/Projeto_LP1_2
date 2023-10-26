@@ -1,14 +1,5 @@
 package group.mpntm.Comunication.Events;
 
-import group.mpntm.Comunication.Message;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import java.io.IOException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
 
 public class LoginButtonPressedEvent {

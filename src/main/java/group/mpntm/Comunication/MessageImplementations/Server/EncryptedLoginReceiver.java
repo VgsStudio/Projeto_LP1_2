@@ -1,14 +1,17 @@
 package group.mpntm.Comunication.MessageImplementations.Server;
 
 import com.google.gson.Gson;
-import group.mpntm.Comunication.ClientCommunication;
+import group.mpntm.Comunication.MesasgeContent.ChartInitContent;
 import group.mpntm.Comunication.MesasgeContent.LoginContent;
 import group.mpntm.Comunication.MesasgeContent.LoginContentResponse;
+import group.mpntm.Comunication.MessageImplementations.Client.ChartInitReceiver;
 import group.mpntm.Comunication.MessageImplementations.IServerMessageImplementation;
 import group.mpntm.Comunication.MessageImplementations.Client.LoginResponseReceiver;
 import group.mpntm.Comunication.Profiles.ClientProfile;
 import group.mpntm.server.database.repo.RepositoryMySQL;
 import group.mpntm.share.cripto.Criptography;
+
+import java.time.LocalDateTime;
 
 
 /**
@@ -23,9 +26,29 @@ public class EncryptedLoginReceiver implements IServerMessageImplementation {
         
         LoginContentResponse loginContentResponse = new LoginContentResponse(validateLogin(loginContent));
 
+
         String json = new Gson().toJson(loginContentResponse);
 
         clientProfile.clientCommunicationServerSide.SendMessage(json, LoginResponseReceiver.class.getSimpleName());
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        LocalDateTime date = LocalDateTime.now();
+
+        var chartInitjson = new Gson().toJson(new ChartInitContent("days", 1, "brasil", date.format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss"))));
+
+        clientProfile.clientCommunicationServerSide.SendMessage(chartInitjson, ChartInitReceiver.class.getSimpleName());
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        clientProfile.isLogged = loginContentResponse.value;
     }
 
     public boolean validateLogin(LoginContent loginContent) {
