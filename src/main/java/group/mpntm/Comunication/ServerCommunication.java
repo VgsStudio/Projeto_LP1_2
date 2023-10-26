@@ -1,7 +1,11 @@
 package group.mpntm.Comunication;
 
+import com.google.gson.Gson;
+import com.mysql.cj.protocol.x.MessageConstants;
 import group.mpntm.Comunication.MessageHandlers.ServerMessageHandler;
+import group.mpntm.Comunication.MessageImplementations.Client.CandleReceiver;
 import group.mpntm.Comunication.Profiles.ClientProfileManager;
+import group.mpntm.server.generator.OHLCGenerator;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -45,6 +49,20 @@ public class ServerCommunication extends Thread {
 
 
     public static void main(String[] args) throws IOException {
+        OHLCGenerator ohlcGenerator = new OHLCGenerator();
         ServerCommunication serverCommunication = new ServerCommunication();
+
+        OHLCGenerator.NumberGeneratedEvent.getInstance().AddListener(
+                candle-> {
+                        var clients = ClientProfileManager.getInstance().getAllClients();
+
+                        for (var client : clients) {
+                            var message = new Gson().toJson(candle);
+                            client.clientCommunicationServerSide.SendMessage(message, CandleReceiver.class.getSimpleName());
+                        }
+
+
+                }
+        );
     }
 }
