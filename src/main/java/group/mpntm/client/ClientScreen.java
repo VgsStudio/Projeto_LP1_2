@@ -2,6 +2,7 @@ package group.mpntm.client;
 
 import javax.swing.*;
 
+import group.mpntm.Comunication.Events.ChartInitEvent;
 import group.mpntm.Comunication.Events.LoginButtonPressedEvent;
 import group.mpntm.Comunication.Events.LoginFailedEvent;
 import group.mpntm.Comunication.Events.LoginSuccessfulEvent;
@@ -31,7 +32,6 @@ public class ClientScreen extends JFrame {
                 setVisible(false);
                 loginbtn.setEnabled(true);
                 JOptionPane.showMessageDialog(null, bn.getString("login.successful"), bn.getString("login.login"), JOptionPane.INFORMATION_MESSAGE);
-                setVisible(true);
             }
         );
         LoginFailedEvent.getInstance().AddListener(
@@ -42,6 +42,14 @@ public class ClientScreen extends JFrame {
                         setVisible(true);
                     }
                 );
+
+        ChartInitEvent.getInstance().AddListener(
+            (content) -> {
+                Chart chart = new Chart();
+                chart.go(content);
+
+            }
+        );
 
         langLabel = new JLabel(langTxt);
 

@@ -1,5 +1,7 @@
 package group.mpntm.client;
 
+import group.mpntm.Comunication.Events.CandleReceivedEvent;
+import group.mpntm.Comunication.MesasgeContent.ChartInitContent;
 import org.knowm.xchart.*;
 
 import javax.swing.*;
@@ -19,8 +21,16 @@ public class Chart extends JFrame {
 
     int col = 0;
 
+    public Chart() {
+        super("Graficuzinho");
 
-    public void go(String title, String period, int interval, LocalDateTime start) {
+        CandleReceivedEvent.getInstance().AddListener(
+                this::addCandle
+        );
+    }
+
+
+    public void go(ChartInitContent content) {
         label = new JLabel("TODO: Implementar Login ");
         button = new JButton("Sair");
 
@@ -31,15 +41,17 @@ public class Chart extends JFrame {
         panel.add(label);
         panel.add(button);
 
-        chart = new OHLCChartBuilder().width(800).height(600).title(title).build();
+        chart = new OHLCChartBuilder().width(800).height(600).title(content.title).build();
 
         chart.getStyler().setLegendVisible(false);
 
         chart.getStyler().setXAxisLabelRotation(45);
 
+        LocalDateTime start = LocalDateTime.parse(content.start, DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss"));
+
         chart.getStyler()
                 .setxAxisTickLabelsFormattingFunction(
-                        x -> start.plusSeconds(x.longValue() * interval).format(DateTimeFormatter.ofPattern("dd hh:mm:ss"))
+                        x -> start.plusSeconds(x.longValue() * content.interval).format(DateTimeFormatter.ofPattern("dd hh:mm:ss"))
                 );
 
         chart.getStyler().setToolTipsEnabled(true);

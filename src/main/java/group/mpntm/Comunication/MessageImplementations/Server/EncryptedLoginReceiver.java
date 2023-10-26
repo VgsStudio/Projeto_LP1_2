@@ -25,7 +25,6 @@ public class EncryptedLoginReceiver implements IServerMessageImplementation {
         
         LoginContentResponse loginContentResponse = new LoginContentResponse(validateLogin(loginContent));
 
-        clientProfile.isLogged = loginContentResponse.value;
 
         String json = new Gson().toJson(loginContentResponse);
 
@@ -36,10 +35,17 @@ public class EncryptedLoginReceiver implements IServerMessageImplementation {
             throw new RuntimeException(e);
         }
 
-        var chartInitjson = new Gson().toJson(new ChartInitContent("days", 1, "brasil", "2023-10-25-23:19:00"));
+        var chartInitjson = new Gson().toJson(new ChartInitContent("days", 1, "brasil", "2023-10-25-11:19:00"));
 
         clientProfile.clientCommunicationServerSide.SendMessage(chartInitjson, ChartInitReceiver.class.getSimpleName());
 
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        clientProfile.isLogged = loginContentResponse.value;
     }
 
     public boolean validateLogin(LoginContent loginContent) {

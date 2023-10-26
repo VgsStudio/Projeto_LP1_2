@@ -2,20 +2,20 @@ package group.mpntm.Comunication.MesasgeContent;
 
 public class ChartInitContent {
 
-    String period;
-    int interval;
-    String title;
-    String date;
+    public String period;
+    public int interval;
+    public String title;
+    public String start;
 
-    public ChartInitContent(String period, int interval, String title, String date) {
+    public ChartInitContent(String period, int interval, String title, String start) {
         this.period = period;
         this.interval = interval;
         this.title = title;
-        this.date = date;
+        this.start = start;
     }
 
     public String toString() {
-        return "days " + interval + " " + period + " " + title + " " + date;
+        return "days " + interval + " " + period + " " + title + " " + start;
     }
 
 
