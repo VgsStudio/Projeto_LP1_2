@@ -57,7 +57,7 @@ public class ServerCommunication extends Thread {
                         var clients = ClientProfileManager.getInstance().getAllClients();
 
                         for (var client : clients) {
-                            System.out.println(client.clientIp + ":" + client.isLogged);
+//                            System.out.println(client.clientIp + ":" + client.isLogged);
                             if (!client.isLogged){
                                 continue;
                             }
