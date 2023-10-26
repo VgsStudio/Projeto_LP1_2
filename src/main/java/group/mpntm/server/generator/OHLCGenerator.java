@@ -1,6 +1,10 @@
 package group.mpntm.server.generator;
 
+import group.mpntm.Comunication.Events.LoginButtonPressedEvent;
+import group.mpntm.Comunication.Events.LoginButtonPressedListener;
 import group.mpntm.client.Candle;
+
+import java.util.HashSet;
 
 
 public class OHLCGenerator extends Thread{
@@ -41,9 +45,42 @@ public OHLCGenerator(){
 
             lastCandle = new Candle(open, close, high, low);
 
-            System.out.println(lastCandle);
+//            System.out.println(lastCandle);
 
+            NumberGeneratedEvent.getInstance().Invoke(lastCandle);
         }
+
+    }
+
+    public static class NumberGeneratedEvent{
+        private static NumberGeneratedEvent instance = null;
+        public static NumberGeneratedEvent getInstance() {
+            if (instance == null) {
+                instance = new NumberGeneratedEvent();
+            }
+            return instance;
+        }
+        private HashSet<NumberGeneratedListener> NumberGeneratedListeners = new HashSet<NumberGeneratedListener>();
+
+        public void Invoke(Candle candle){
+            for (var NumberGeneratedListener : NumberGeneratedListeners) {
+                NumberGeneratedListener.onNumberGenerated(candle);
+            }
+        }
+
+        public void AddListener(NumberGeneratedListener NumberGeneratedListener) {
+            NumberGeneratedListeners.add(NumberGeneratedListener);
+        }
+
+        public void RemoveListener(NumberGeneratedListener NumberGeneratedListener) {
+            NumberGeneratedListeners.remove(NumberGeneratedListener);
+        }
+
+    }
+    public interface NumberGeneratedListener{
+
+    void onNumberGenerated(Candle candle);
+
 
     }
 
