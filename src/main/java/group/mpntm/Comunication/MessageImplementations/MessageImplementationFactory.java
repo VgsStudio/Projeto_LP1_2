@@ -1,6 +1,7 @@
 package group.mpntm.Comunication.MessageImplementations;
 
 import group.mpntm.Comunication.MessageImplementations.Client.CandleReceiver;
+import group.mpntm.Comunication.MessageImplementations.Client.ChartInitReceiver;
 import group.mpntm.Comunication.MessageImplementations.Client.EncryptedLoginSender;
 import group.mpntm.Comunication.MessageImplementations.Client.LoginResponseReceiver;
 import group.mpntm.Comunication.MessageImplementations.Server.EncryptedLoginReceiver;
@@ -41,6 +42,9 @@ public class MessageImplementationFactory {
         }
         if (className.equals(CandleReceiver.class.getSimpleName())){
             c = (Class) CandleReceiver.class;
+        }
+        if (className.equals(ChartInitReceiver.class.getSimpleName())){
+            c = (Class) ChartInitReceiver.class;
         }
 
         var obj = (T) c.newInstance();
