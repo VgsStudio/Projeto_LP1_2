@@ -11,6 +11,7 @@ import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Chart extends JFrame {
@@ -27,6 +28,8 @@ public class Chart extends JFrame {
     private String[] lang = ClientScreen.lang;
     private LangChooser langChooser;
     private JPanel upperPanel;
+    private JTable historyTable;
+    private JScrollPane historyScrollPane;
 
     int col = 0;
 
@@ -106,8 +109,11 @@ public class Chart extends JFrame {
         historyButton = new JButton(bn.getString("chart.history"));
         historyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         historyButton.addActionListener(e -> {
-
-
+            Candle[] candles = new Candle[20];
+            for (int i = 0; i < 20; i++) {
+                candles[i] = new Candle();
+            }
+            addHistoryTable(List.of(candles));
             HistoryButtonPressedEvent.getInstance().Invoke();
             historyButton.setEnabled(false);
         });
@@ -171,6 +177,38 @@ public class Chart extends JFrame {
         chart.setYAxisTitle(bn.getString("chart.yAxisTitle"));
         historyButton.setText(bn.getString("chart.history"));
 
+        if (historyScrollPane != null){
+            historyScrollPane.setBorder(BorderFactory.createTitledBorder(bn.getString("chart.history")));
+            String[] headers = {bn.getString("chart.date"), bn.getString("chart.open"), bn.getString("chart.close"), bn.getString("chart.high"), bn.getString("chart.low")};
+            historyTable.getTableHeader().getColumnModel().getColumn(0).setHeaderValue(headers[0]);
+            historyTable.getTableHeader().getColumnModel().getColumn(1).setHeaderValue(headers[1]);
+            historyTable.getTableHeader().getColumnModel().getColumn(2).setHeaderValue(headers[2]);
+            historyTable.getTableHeader().getColumnModel().getColumn(3).setHeaderValue(headers[3]);
+            historyTable.getTableHeader().getColumnModel().getColumn(4).setHeaderValue(headers[4]);
+
+        }
+
         chartPanel.repaint();
+    }
+
+    public void addHistoryTable(java.util.List<Candle> candles){
+
+        String[] headers = {bn.getString("chart.date"), bn.getString("chart.open"), bn.getString("chart.close"), bn.getString("chart.high"), bn.getString("chart.low")};
+
+        String[][] data = new String[candles.size()][5];
+
+        for (int i = 0; i < candles.size(); i++) {
+            data[i][0] = candles.get(i).date;
+            data[i][1] = String.valueOf(candles.get(i).getOpen());
+            data[i][2] = String.valueOf(candles.get(i).getClose());
+            data[i][3] = String.valueOf(candles.get(i).getHigh());
+            data[i][4] = String.valueOf(candles.get(i).getLow());
+        }
+
+        this.historyTable = new JTable(data, headers);
+        historyScrollPane = new JScrollPane(historyTable);
+        historyScrollPane.setBorder(BorderFactory.createTitledBorder(bn.getString("chart.history")));
+        add(historyScrollPane);
+        pack();
     }
 }

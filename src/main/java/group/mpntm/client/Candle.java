@@ -81,4 +81,8 @@ public class Candle {
     public String toString() {
         return "Open: " + this.open + " Close: " + this.close + " High: " + this.high + " Low: " + this.low + " Date: " + this.date;
     }
+
+    public String[] toStringArray() {
+        return new String[] {this.date, String.valueOf(this.open), String.valueOf(this.close), String.valueOf(this.high), String.valueOf(this.low)};
+    }
 }
