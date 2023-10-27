@@ -14,7 +14,6 @@ import java.util.ResourceBundle;
 public class Chart extends JFrame {
     private JLabel label;
     private JButton button;
-    public SwingWrapper<XYChart> sw;
     public JPanel chartPanel;
     public OHLCChart chart;
     public LinkedList<Candle> fifo = new LinkedList<>();
@@ -71,18 +70,35 @@ public class Chart extends JFrame {
         add(menuBar);
 
 
-        chart = new OHLCChartBuilder().width(800).height(600).title(content.title).build();
+        chart = new OHLCChartBuilder().width(800).height(600).title(content.title)
+                .xAxisTitle(bn.getString("chart.xAxisTitle"))
+                .yAxisTitle(bn.getString("chart.yAxisTitle"))
+                .build();
+
         this.title = content.title;
 
         chart.getStyler().setLegendVisible(false);
-
         chart.getStyler().setXAxisLabelRotation(45);
+
+        chart.getStyler().setYAxisDecimalPattern("$ ####.##");
 
         LocalDateTime start = LocalDateTime.parse(content.start, DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss"));
 
+        ResourceBundle bn = langChooser.getBn();
+
+        String datetimeFromatter;
+
+        if (bn.getLocale().getLanguage() == "en"){
+            datetimeFromatter = "hh:mm:ss";
+
+        } else {
+            datetimeFromatter = "HH:mm:ss";
+        }
+
+
         chart.getStyler()
                 .setxAxisTickLabelsFormattingFunction(
-                        x -> start.plusSeconds(x.longValue() * content.interval).format(DateTimeFormatter.ofPattern("dd hh:mm:ss"))
+                        x -> start.plusSeconds(x.longValue() * content.interval).format(DateTimeFormatter.ofPattern(datetimeFromatter))
                 );
 
         chart.getStyler().setToolTipsEnabled(true);
@@ -104,6 +120,8 @@ public class Chart extends JFrame {
 
 
     public void addCandle(Candle candle) {
+
+        System.out.println(this.chart == null);
 
         xData.add((double) ++col);
         fifo.add(candle);
@@ -129,6 +147,9 @@ public class Chart extends JFrame {
     public void setLanguage(){
         this.setTitle(bn.getString("chart.title"));
         menu.setText(bn.getString("login.language"));
-        menuItem.setText(bn.getString("login.language"));
+        chart.setXAxisTitle(bn.getString("chart.xAxisTitle"));
+        chart.setYAxisTitle(bn.getString("chart.yAxisTitle"));
+
+        chartPanel.repaint();
     }
 }
