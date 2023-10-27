@@ -102,6 +102,7 @@ public class Chart extends JFrame {
         upperPanel.add(chartPanel);
 
         // upperPanel
+        upperPanel.setLayout(new BoxLayout(upperPanel, BoxLayout.X_AXIS));
         add(upperPanel);
 
 
@@ -109,6 +110,19 @@ public class Chart extends JFrame {
         historyButton = new JButton(bn.getString("chart.history"));
         historyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         historyButton.addActionListener(e -> {
+
+            if (historyScrollPane != null){
+                remove(historyScrollPane);
+                remove(historyTable);
+                historyScrollPane = null;
+                historyTable = null;
+                this.repaint();
+                pack();
+
+            }
+            else {
+
+
             Candle[] candles = new Candle[20];
             for (int i = 0; i < 20; i++) {
                 candles[i] = new Candle();
@@ -116,6 +130,7 @@ public class Chart extends JFrame {
             addHistoryTable(List.of(candles));
             HistoryButtonPressedEvent.getInstance().Invoke();
             historyButton.setEnabled(false);
+            }
         });
         add(historyButton);
 
@@ -137,7 +152,6 @@ public class Chart extends JFrame {
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         pack();
         setLocationRelativeTo(null);
-
         setResizable(false);
 
         // Listener
@@ -208,7 +222,7 @@ public class Chart extends JFrame {
         this.historyTable = new JTable(data, headers);
         historyScrollPane = new JScrollPane(historyTable);
         historyScrollPane.setBorder(BorderFactory.createTitledBorder(bn.getString("chart.history")));
-        add(historyScrollPane);
+        upperPanel.add(historyScrollPane);
         pack();
     }
 }
