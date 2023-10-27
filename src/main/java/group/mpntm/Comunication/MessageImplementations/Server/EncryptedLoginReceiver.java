@@ -24,7 +24,7 @@ public class EncryptedLoginReceiver implements IServerMessageImplementation {
     public void Activate(ClientProfile clientProfile, String messageContent) {
         LoginContent loginContent = new Gson().fromJson(messageContent, LoginContent.class);
         
-        LoginContentResponse loginContentResponse = new LoginContentResponse(true); // TODO: validateLogin(loginContent)
+        LoginContentResponse loginContentResponse = new LoginContentResponse(validateLogin(loginContent));
 
 
         String json = new Gson().toJson(loginContentResponse);
