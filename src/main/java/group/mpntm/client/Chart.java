@@ -87,19 +87,19 @@ public class Chart extends JFrame {
 
         ResourceBundle bn = langChooser.getBn();
 
-        String datetimeFromatter;
+        String datetimeFormatter;
 
         if (bn.getLocale().getLanguage() == "en"){
-            datetimeFromatter = "hh:mm:ss";
+            datetimeFormatter = "hh:mm:ss";
 
         } else {
-            datetimeFromatter = "HH:mm:ss";
+            datetimeFormatter = "HH:mm:ss";
         }
 
 
         chart.getStyler()
                 .setxAxisTickLabelsFormattingFunction(
-                        x -> start.plusSeconds(x.longValue() * content.interval).format(DateTimeFormatter.ofPattern(datetimeFromatter))
+                        x -> start.plusSeconds(x.longValue() * content.interval).format(DateTimeFormatter.ofPattern(datetimeFormatter))
                 );
 
         chart.getStyler().setToolTipsEnabled(true);
