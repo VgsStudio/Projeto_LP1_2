@@ -1,6 +1,8 @@
 package group.mpntm.client;
 
 import group.mpntm.Comunication.Events.CandleReceivedEvent;
+import group.mpntm.Comunication.Events.HistoryButtonPressedEvent;
+import group.mpntm.Comunication.Events.HistoryResponseEvent;
 import group.mpntm.Comunication.MesasgeContent.ChartInitContent;
 import org.knowm.xchart.*;
 
@@ -12,8 +14,7 @@ import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 public class Chart extends JFrame {
-    private JLabel label;
-    private JButton button;
+    private JButton historyButton;
     public JPanel chartPanel;
     public OHLCChart chart;
     public LinkedList<Candle> fifo = new LinkedList<>();
@@ -25,6 +26,7 @@ public class Chart extends JFrame {
     private JMenuItem menuItem;
     private String[] lang = ClientScreen.lang;
     private LangChooser langChooser;
+    private JPanel upperPanel;
 
     int col = 0;
 
@@ -37,21 +39,13 @@ public class Chart extends JFrame {
 
 
     public void go(ChartInitContent content) {
-//        label = new JLabel("TODO: Implementar Login ");
-//        button = new JButton("Sair");
 
-//        button.addActionListener(e -> {
-//            dispose();
-//        });
-//        JPanel panel = new JPanel();
-//        panel.add(label);
-//        panel.add(button);
+        upperPanel = new JPanel();
 
+        // Menu
         menu = new JMenu(bn.getString("login.language"));
         menuBar = new JMenuBar();
 
-
-        // add menu item to each menu
         for (int i = 0; i < lang.length; i++) {
             menuItem = new JMenuItem(lang[i]);
             int finalI = i;
@@ -66,6 +60,7 @@ public class Chart extends JFrame {
         menuBar.add(menu);
         setJMenuBar(menuBar);
 
+        // Chart
 
         chart = new OHLCChartBuilder().width(800).height(600).title(content.title)
                 .xAxisTitle(bn.getString("chart.xAxisTitle"))
@@ -100,23 +95,46 @@ public class Chart extends JFrame {
 
         chart.getStyler().setToolTipsEnabled(true);
 
-
-        // Show it
         chartPanel = new XChartPanel<OHLCChart>(chart);
-//        add(panel);
-        add(chartPanel);
+        upperPanel.add(chartPanel);
 
+        // upperPanel
+        add(upperPanel);
+
+
+        // History
+        historyButton = new JButton(bn.getString("chart.history"));
+        historyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        historyButton.addActionListener(e -> {
+
+
+            HistoryButtonPressedEvent.getInstance().Invoke();
+            historyButton.setEnabled(false);
+        });
+        add(historyButton);
+
+        HistoryResponseEvent.getInstance().AddListener(
+                (historyResponseContent) -> {
+                    for (Candle candle : historyResponseContent.candles) {
+                        System.out.println(candle);
+                    }
+                    historyButton.setEnabled(true);
+                }
+        );
+
+
+
+        // General
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
-
         setSize(300, 300);
         setVisible(true);
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         pack();
-
         setLocationRelativeTo(null);
 
+        setResizable(false);
+
+        // Listener
         CandleReceivedEvent.getInstance().AddListener(
                 this::addCandle
         );
@@ -151,6 +169,7 @@ public class Chart extends JFrame {
         menu.setText(bn.getString("login.language"));
         chart.setXAxisTitle(bn.getString("chart.xAxisTitle"));
         chart.setYAxisTitle(bn.getString("chart.yAxisTitle"));
+        historyButton.setText(bn.getString("chart.history"));
 
         chartPanel.repaint();
     }
