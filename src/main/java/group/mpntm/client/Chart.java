@@ -33,9 +33,6 @@ public class Chart extends JFrame {
         this.bn = langChooser.getBn();
         this.langChooser = langChooser;
 
-        CandleReceivedEvent.getInstance().AddListener(
-                this::addCandle
-        );
     }
 
 
@@ -110,6 +107,12 @@ public class Chart extends JFrame {
         add(chartPanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+        CandleReceivedEvent.getInstance().AddListener(
+                this::addCandle
+        );
+
         setSize(300, 300);
         setVisible(true);
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
@@ -120,8 +123,6 @@ public class Chart extends JFrame {
 
 
     public void addCandle(Candle candle) {
-
-        System.out.println(this.chart == null);
 
         xData.add((double) ++col);
         fifo.add(candle);
