@@ -2,6 +2,7 @@ package group.mpntm.client;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Date;
 
 public class Candle {
@@ -34,7 +35,9 @@ public class Candle {
         this.close = random + Math.random()*10;
         this.high = this.close + Math.random()*10;
         this.low = this.open - Math.random()*10;
-        this.date = String.valueOf(LocalDateTime.now().plusDays((long) random));
+        this.date = LocalDateTime.now().plusDays((long) random).format(
+                new DateTimeFormatterBuilder().appendPattern("HH:mm:ss").toFormatter()
+        );
     }
 
     public double getOpen() {
