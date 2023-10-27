@@ -32,6 +32,8 @@ public class Chart extends JFrame {
     private JTable historyTable;
     private JScrollPane historyScrollPane;
     private DefaultTableModel model;
+    private LocalDateTime start;
+    private int interval;
 
     int col = 0;
 
@@ -80,6 +82,8 @@ public class Chart extends JFrame {
         chart.getStyler().setYAxisDecimalPattern("$ ####.##");
 
         LocalDateTime start = LocalDateTime.parse(content.start, DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss"));
+        this.start = start;
+        this.interval = content.interval;
 
         ResourceBundle bn = langChooser.getBn();
 
@@ -125,8 +129,8 @@ public class Chart extends JFrame {
             else {
 
 
-            Candle[] candles = new Candle[20];
-            for (int i = 0; i < 20; i++) {
+            Candle[] candles = new Candle[80];
+            for (int i = 0; i < 80; i++) {
                 candles[i] = new Candle();
             }
             addHistoryTable(List.of(candles));
@@ -178,12 +182,18 @@ public class Chart extends JFrame {
             xData.removeFirst();
         }
 
+        candle.date = start.plusSeconds(xData.getLast().longValue()*interval).format(DateTimeFormatter.ofPattern("HH:mm:ss"));
 
         if (historyTable != null){
             String[] data = candle.toStringArray();
             model = (DefaultTableModel) historyTable.getModel();
             model.addRow(data);
+
             historyTable.setModel(model);
+            historyTable.scrollRectToVisible(historyTable.getCellRect(historyTable.getRowCount() + 1, 0, false));
+
+
+
         }
 
 
