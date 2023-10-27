@@ -178,6 +178,7 @@ public class ClientScreen extends JFrame {
         usernameLabel.setText(userLable);
         passwordLabel.setText(passLable);
         langLabel.setText(langTxt);
+        this.setTitle(bn.getString("login.login"));
     }
 
     public void setLanguageFromTxt(){
