@@ -7,6 +7,7 @@ import group.mpntm.Comunication.MesasgeContent.ChartInitContent;
 import org.knowm.xchart.*;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -30,6 +31,7 @@ public class Chart extends JFrame {
     private JPanel upperPanel;
     private JTable historyTable;
     private JScrollPane historyScrollPane;
+    private DefaultTableModel model;
 
     int col = 0;
 
@@ -163,6 +165,10 @@ public class Chart extends JFrame {
 
     public void addCandle(Candle candle) {
 
+        if (chartPanel == null) {
+            return;
+        }
+
         xData.add((double) ++col);
         fifo.add(candle);
         if (fifo.size() > 20) {
@@ -171,6 +177,15 @@ public class Chart extends JFrame {
         if (xData.size() > 20) {
             xData.removeFirst();
         }
+
+
+        if (historyTable != null){
+            String[] data = candle.toStringArray();
+            model = (DefaultTableModel) historyTable.getModel();
+            model.addRow(data);
+            historyTable.setModel(model);
+        }
+
 
         if (chart.getSeriesMap().containsKey(this.title)) {
             chart.updateOHLCSeries(this.title, xData.stream().mapToDouble(Double::doubleValue).toArray(), fifo.stream().mapToDouble(Candle::getOpen).toArray(), fifo.stream().mapToDouble(Candle::getHigh).toArray(), fifo.stream().mapToDouble(Candle::getLow).toArray(), fifo.stream().mapToDouble(Candle::getClose).toArray());
@@ -219,7 +234,8 @@ public class Chart extends JFrame {
             data[i][4] = String.valueOf(candles.get(i).getLow());
         }
 
-        this.historyTable = new JTable(data, headers);
+        model = new DefaultTableModel(data, headers);
+        this.historyTable = new JTable(model);
         historyScrollPane = new JScrollPane(historyTable);
         historyScrollPane.setBorder(BorderFactory.createTitledBorder(bn.getString("chart.history")));
         upperPanel.add(historyScrollPane);
