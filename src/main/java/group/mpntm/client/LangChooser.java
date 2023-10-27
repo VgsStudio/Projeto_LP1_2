@@ -9,7 +9,7 @@ public class LangChooser {
     private ResourceBundle bn;
     private SaveFile save; 
 
-    private File file = new File("src\\main\\resources","save.txt");
+    private File file = new File("src\\main\\resources","preferences.txt");
 
     public LangChooser(String lang){
         chooseLang(lang);
