@@ -1,1 +1,1 @@
-Lang=English
+Lang=Deutsch

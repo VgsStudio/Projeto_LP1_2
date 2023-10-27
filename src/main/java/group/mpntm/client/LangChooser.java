@@ -41,14 +41,16 @@ public class LangChooser {
     public ResourceBundle getBn() {
         return bn;
     }
-    public void getLastLang(){
+    public String getLastLang(){
         save = new SaveFile();
         save.read(file);
         String langS = save.getSave();  
-        chooseLang(langS);
+        return langS;
     }
     public void setLastLang(String lang){
         save = new SaveFile();
-        save.write(lang,file);
+        save.save(lang, file);
+        
     }
+
 }

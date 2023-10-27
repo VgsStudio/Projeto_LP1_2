@@ -32,14 +32,15 @@ public class SaveFile {
         
     }
 
-    public void write(String save, File file){
+    public void save(String save, File file){
         try {
-            writer = new FileWriter(file,true);
-            String eater = getSave();
+            writer = new FileWriter(file);
             out = new Formatter(writer);
-            out.format(save);
-            writer.close();
+            out.format("Lang="+save);
+            out.flush();
+            writer.flush();
             out.close();
+            writer.close();
         } catch (Exception e) {
           System.out.println("Error: " + e.getMessage());
         }
@@ -49,9 +50,6 @@ public class SaveFile {
         return save;
     }
     
-    public String getString(){
-        String save = list.toString();
-        return save;
-    }
+   
    
 }

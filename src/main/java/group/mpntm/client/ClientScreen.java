@@ -35,6 +35,7 @@ public class ClientScreen extends JFrame {
                     String op = (String) event.getItem();
 
                     langChooser.chooseLang(op);
+                    langChooser.setLastLang(op);
                     setLanguage();
                     
 
@@ -120,6 +121,7 @@ public class ClientScreen extends JFrame {
         c.gridx = 0;
         c.gridy = 2;
         c.gridwidth = 2; 
+
         lowerPanel.add(loginbtn,c);
         
         //upperPanel.setBackground(Color.GREEN);
@@ -156,7 +158,8 @@ public class ClientScreen extends JFrame {
     }
 
     public void setLanguageFromTxt(){
-        langChooser.getLastLang();
+        String langS = langChooser.getLastLang();
+        langChooser.chooseLang(langS);
        
     }
 
