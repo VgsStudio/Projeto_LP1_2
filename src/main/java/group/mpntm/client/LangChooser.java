@@ -1,19 +1,22 @@
 package group.mpntm.client;
 
+import java.io.File;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 
 public class LangChooser {
-    private String lang, userLable, passLable, langTxt;   
     private ResourceBundle bn;
+    private SaveFile save;
+
+    private File file = new File("src\\main\\resources","preferences.txt");
 
     public LangChooser(String lang){
         chooseLang(lang);
     }
 
     public LangChooser(){
-        chooseLang("Português");
+      chooseLang("Português");
     }
 
     public void chooseLang(String lang){
@@ -31,13 +34,26 @@ public class LangChooser {
                         case  "Español":
                             bn = ResourceBundle.getBundle(bundle, new Locale("es","ES"));
                         break;
-                        default:
-                            bn = ResourceBundle.getBundle(bundle, new Locale("pt", "BR"));
+                        case  "Italiano":
+                            bn = ResourceBundle.getBundle(bundle, new Locale("it","IT"));
                         break;
+
                     }
     }
 
     public ResourceBundle getBn() {
         return bn;
     }
+    public String getLastLang(){
+        save = new SaveFile();
+        save.read(file);
+        String langS = save.getSave();
+        return langS;
+    }
+    public void setLastLang(String lang){
+        save = new SaveFile();
+        save.save(lang, file);
+
+    }
+
 }

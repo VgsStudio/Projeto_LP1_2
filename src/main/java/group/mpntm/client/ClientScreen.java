@@ -1,6 +1,12 @@
 package group.mpntm.client;
 
 import javax.swing.*;
+
+import group.mpntm.Comunication.Events.ChartInitEvent;
+import group.mpntm.Comunication.Events.LoginButtonPressedEvent;
+import group.mpntm.Comunication.Events.LoginFailedEvent;
+import group.mpntm.Comunication.Events.LoginSuccessfulEvent;
+
 import java.awt.*;
 import java.awt.event.ItemListener;
 import java.util.ResourceBundle;
@@ -12,20 +18,45 @@ public class ClientScreen extends JFrame {
     private JButton loginbtn; 
     private JLabel usernameLabel, passwordLabel, langLabel;
     private JPanel panel,  upperPanel, lowerPanel;
-    private Login login;
-    private String username,password, userLable, passLable, langTxt, index; 
+    private String username,password, userLable, passLable, langTxt;
     private JComboBox<String> langDropdown;
     private ResourceBundle bn;
     private LangChooser langChooser = new LangChooser();
+    public static String[] lang = {"Português","Deutsch", "Español", "English", "Italiano"};
 
-    public ClientScreen(Client client) {
+    public ClientScreen() {
 
         setLanguageFromTxt();
 
+        LoginSuccessfulEvent.getInstance().AddListener(
+            () -> {
+                setVisible(false);
+                loginbtn.setEnabled(true);
+                JOptionPane.showMessageDialog(null, bn.getString("login.successful"), bn.getString("login.login"), JOptionPane.INFORMATION_MESSAGE);
+            }
+        );
+        LoginFailedEvent.getInstance().AddListener(
+                    () -> {
+                        setVisible(false);
+                        loginbtn.setEnabled(true);
+                        JOptionPane.showMessageDialog(null, bn.getString("login.failed"), bn.getString("login.login"), JOptionPane.INFORMATION_MESSAGE);
+                        setVisible(true);
+                    }
+                );
+
+        ChartInitEvent.getInstance().AddListener(
+            (content) -> {
+                Chart chart = new Chart(langChooser);
+                chart.go(content);
+
+            }
+        );
+
         langLabel = new JLabel(langTxt);
 
-        String[] lang = {"Português","Deutsch", "Español", "English"};
+
         langDropdown = new JComboBox<>(lang);
+        langDropdown.setSelectedItem(langChooser.getLastLang());
         langDropdown.addItemListener (  new ItemListener()
            {
               public void itemStateChanged( ItemEvent event )
@@ -34,6 +65,7 @@ public class ClientScreen extends JFrame {
                     String op = (String) event.getItem();
 
                     langChooser.chooseLang(op);
+                    langChooser.setLastLang(op);
                     setLanguage();
 
 
@@ -54,34 +86,33 @@ public class ClientScreen extends JFrame {
         passwordField = new JPasswordField(20);
         setLanguage();
 
-        loginbtn = new JButton("Login");
+        loginbtn = new JButton(bn.getString("login.login"));
 
-        login = new Login(client);
 
         loginbtn.addActionListener(e -> {
-                try {
-                    username = usernameField.getText();
-                    password = String.format("%s", new String(passwordField.getPassword()));
-                    if (login.validate(username, password)) {
-                        JOptionPane.showMessageDialog(null, "Login Feito com sucesso");
-                        setVisible(false);
+            try {
 
-                    } else {
-                        setVisible(false);
-                        JOptionPane.showMessageDialog(null, "Senha Invalida");
-                        setVisible(true);
-                    }
-                   
+                username = usernameField.getText();
+                password = String.format("%s", new String(passwordField.getPassword()));
 
-                } catch (Exception exception) {
-                    exception.printStackTrace();
+                if (username.isEmpty() || password.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, bn.getString("login.empty"), bn.getString("login.login"), JOptionPane.INFORMATION_MESSAGE);
+                    return;
                 }
-            });
+
+                LoginButtonPressedEvent.getInstance().Invoke(username, password);
+
+                loginbtn.setEnabled(false);
+
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        });
 
         
 
 
-        // Configuração das posições dos componentes no painel 
+        // Configuração das posições dos componentes no frame
         upperPanel = new JPanel(new FlowLayout());
         
         upperPanel.add(langLabel);
@@ -98,15 +129,17 @@ public class ClientScreen extends JFrame {
         c.gridy = 0;
         lowerPanel.add(usernameLabel,c);
 
-        c.gridx = 1;
-        c.gridy = 0;
-        
-        lowerPanel.add(usernameField,c);
-
         c.gridx = 0;
         c.gridy = 1;
         
         lowerPanel.add(passwordLabel,c);
+
+        c.weightx = 1;
+
+        c.gridx = 1;
+        c.gridy = 0;
+
+        lowerPanel.add(usernameField,c);
 
         c.gridx = 1;
         c.gridy = 1;
@@ -116,6 +149,7 @@ public class ClientScreen extends JFrame {
         c.gridx = 0;
         c.gridy = 2;
         c.gridwidth = 2; 
+
         lowerPanel.add(loginbtn,c);
         
         //upperPanel.setBackground(Color.GREEN);
@@ -149,13 +183,12 @@ public class ClientScreen extends JFrame {
         usernameLabel.setText(userLable);
         passwordLabel.setText(passLable);
         langLabel.setText(langTxt);
+        this.setTitle(bn.getString("login.login"));
     }
 
     public void setLanguageFromTxt(){
-
-        String lang = "Português"; // ler de um txt
-        langChooser.chooseLang(lang);
-
+        String langS = langChooser.getLastLang();
+        langChooser.chooseLang(langS);
 
     }
 
