@@ -24,7 +24,7 @@ public class EncryptedLoginReceiver implements IServerMessageImplementation {
     public void Activate(ClientProfile clientProfile, String messageContent) {
         LoginContent loginContent = new Gson().fromJson(messageContent, LoginContent.class);
         
-        LoginContentResponse loginContentResponse = new LoginContentResponse(validateLogin(loginContent));
+        LoginContentResponse loginContentResponse = new LoginContentResponse(true); // TODO: validateLogin(loginContent)
 
 
         String json = new Gson().toJson(loginContentResponse);
@@ -38,17 +38,17 @@ public class EncryptedLoginReceiver implements IServerMessageImplementation {
 
         LocalDateTime date = LocalDateTime.now();
 
-        var chartInitjson = new Gson().toJson(new ChartInitContent("days", 1, "brasil", date.format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss"))));
-
-        clientProfile.clientCommunicationServerSide.SendMessage(chartInitjson, ChartInitReceiver.class.getSimpleName());
+        var chartInitJson = new Gson().toJson(new ChartInitContent("days", 1, "CALV7", date.format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss"))));
 
         try {
-            Thread.sleep(500);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
+        clientProfile.clientCommunicationServerSide.SendMessage(chartInitJson, ChartInitReceiver.class.getSimpleName());
         clientProfile.isLogged = loginContentResponse.value;
+
     }
 
     public boolean validateLogin(LoginContent loginContent) {
