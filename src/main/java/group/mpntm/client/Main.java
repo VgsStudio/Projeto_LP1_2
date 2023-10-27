@@ -22,13 +22,13 @@ public class Main {
 
         ButtonClickingConnection buttonClickingConnection = new ButtonClickingConnection(clientCommunication);
         ClientMessageHandler clientMessageHandler = new ClientMessageHandler(clientCommunication);
-//        HistoryButtonPressedEvent.getInstance().AddListener(
-//            () -> {
-//                HistoryRequestContent historyRequestContent = new HistoryRequestContent(100);
-//                var json = new Gson().toJson(historyRequestContent);
-//                clientCommunication.SendMessage(json, HistoryRequestReceiver.class.getSimpleName());
-//            }
-//        );
+        HistoryButtonPressedEvent.getInstance().AddListener(
+            () -> {
+                HistoryRequestContent historyRequestContent = new HistoryRequestContent(100);
+                var json = new Gson().toJson(historyRequestContent);
+                clientCommunication.SendMessage(json, HistoryRequestReceiver.class.getSimpleName());
+            }
+        );
 
 
         ClientScreen clientScreen = new ClientScreen();

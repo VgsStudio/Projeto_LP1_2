@@ -13,10 +13,6 @@ public class HistoryResponseReceiver implements IClientMessageImplementation {
     @Override
     public void Activate(String messageContent) {
         HistoryResponseContent candles = new Gson().fromJson(messageContent, HistoryResponseContent.class);
-        System.out.println("Recebendo as candles: ");
-        for (Candle candle : candles.candles) {
-            System.out.println(candle);
-        }
         HistoryResponseEvent.getInstance().Invoke(candles);
     }
 }

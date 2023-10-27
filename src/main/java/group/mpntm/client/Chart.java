@@ -117,7 +117,7 @@ public class Chart extends JFrame {
         historyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         historyButton.addActionListener(e -> {
 
-            if (historyScrollPane != null){
+            if (historyTable != null){
                 remove(historyScrollPane);
                 remove(historyTable);
                 historyScrollPane = null;
@@ -127,13 +127,6 @@ public class Chart extends JFrame {
 
             }
             else {
-
-
-            Candle[] candles = new Candle[80];
-            for (int i = 0; i < 80; i++) {
-                candles[i] = new Candle();
-            }
-            addHistoryTable(List.of(candles));
             HistoryButtonPressedEvent.getInstance().Invoke();
             historyButton.setEnabled(false);
             }
@@ -142,9 +135,7 @@ public class Chart extends JFrame {
 
         HistoryResponseEvent.getInstance().AddListener(
                 (historyResponseContent) -> {
-                    for (Candle candle : historyResponseContent.candles) {
-                        System.out.println(candle);
-                    }
+                    addHistoryTable(historyResponseContent.candles);
                     historyButton.setEnabled(true);
                 }
         );
@@ -237,7 +228,7 @@ public class Chart extends JFrame {
         String[][] data = new String[candles.size()][5];
 
         for (int i = 0; i < candles.size(); i++) {
-            data[i][0] = candles.get(i).date;
+            data[i][0] = this.start.plusSeconds(i*interval).format(DateTimeFormatter.ofPattern("HH:mm:ss"));
             data[i][1] = String.valueOf(candles.get(i).getOpen());
             data[i][2] = String.valueOf(candles.get(i).getClose());
             data[i][3] = String.valueOf(candles.get(i).getHigh());
