@@ -18,7 +18,7 @@ public class ClientScreen extends JFrame {
     private JButton loginbtn; 
     private JLabel usernameLabel, passwordLabel, langLabel;
     private JPanel panel,  upperPanel, lowerPanel;
-    private String username,password, userLable, passLable, langTxt, index; 
+    private String username,password, userLable, passLable, langTxt, index;
     private JComboBox<String> langDropdown;
     private ResourceBundle bn;
     private LangChooser langChooser = new LangChooser();
@@ -64,6 +64,7 @@ public class ClientScreen extends JFrame {
                     String op = (String) event.getItem();
 
                     langChooser.chooseLang(op);
+                    langChooser.setLastLang(op);
                     setLanguage();
 
 
@@ -97,7 +98,7 @@ public class ClientScreen extends JFrame {
                     JOptionPane.showMessageDialog(null, bn.getString("login.empty"), bn.getString("login.login"), JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
-                
+
                 LoginButtonPressedEvent.getInstance().Invoke(username, password);
 
                 loginbtn.setEnabled(false);
@@ -110,7 +111,7 @@ public class ClientScreen extends JFrame {
         
 
 
-        // Configuração das posições dos componentes no painel 
+        // Configuração das posições dos componentes no frame
         upperPanel = new JPanel(new FlowLayout());
         
         upperPanel.add(langLabel);
@@ -127,15 +128,17 @@ public class ClientScreen extends JFrame {
         c.gridy = 0;
         lowerPanel.add(usernameLabel,c);
 
-        c.gridx = 1;
-        c.gridy = 0;
-        
-        lowerPanel.add(usernameField,c);
-
         c.gridx = 0;
         c.gridy = 1;
         
         lowerPanel.add(passwordLabel,c);
+
+        c.weightx = 1;
+
+        c.gridx = 1;
+        c.gridy = 0;
+
+        lowerPanel.add(usernameField,c);
 
         c.gridx = 1;
         c.gridy = 1;
@@ -145,6 +148,7 @@ public class ClientScreen extends JFrame {
         c.gridx = 0;
         c.gridy = 2;
         c.gridwidth = 2; 
+
         lowerPanel.add(loginbtn,c);
         
         //upperPanel.setBackground(Color.GREEN);
@@ -182,10 +186,8 @@ public class ClientScreen extends JFrame {
     }
 
     public void setLanguageFromTxt(){
-
-        String lang = "Português"; // ler de um txt
-        langChooser.chooseLang(lang);
-
+        String langS = langChooser.getLastLang();
+        langChooser.chooseLang(langS);
 
     }
 
