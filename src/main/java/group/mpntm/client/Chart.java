@@ -182,7 +182,9 @@ public class Chart extends JFrame {
             model.addRow(data);
 
             historyTable.setModel(model);
+            historyTable.setVisible(false);
             historyTable.scrollRectToVisible(historyTable.getCellRect(historyTable.getRowCount() + 1, 0, false));
+            historyTable.setVisible(true);
 
 
 
@@ -229,7 +231,7 @@ public class Chart extends JFrame {
         String[][] data = new String[candles.size()][5];
 
         for (int i = 0; i < candles.size(); i++) {
-            data[i][0] = this.start.plusSeconds(i*interval).format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+            data[i][0] = candles.get(i).getDate();
             data[i][1] = String.valueOf(candles.get(i).getOpen());
             data[i][2] = String.valueOf(candles.get(i).getClose());
             data[i][3] = String.valueOf(candles.get(i).getHigh());
