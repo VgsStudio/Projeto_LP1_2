@@ -64,7 +64,7 @@ public class Chart extends JFrame {
         }
 
         menuBar.add(menu);
-        add(menuBar);
+        setJMenuBar(menuBar);
 
 
         chart = new OHLCChartBuilder().width(800).height(600).title(content.title)
@@ -109,9 +109,6 @@ public class Chart extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-        CandleReceivedEvent.getInstance().AddListener(
-                this::addCandle
-        );
 
         setSize(300, 300);
         setVisible(true);
@@ -119,6 +116,10 @@ public class Chart extends JFrame {
         pack();
 
         setLocationRelativeTo(null);
+
+        CandleReceivedEvent.getInstance().AddListener(
+                this::addCandle
+        );
     }
 
 
