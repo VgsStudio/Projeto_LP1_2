@@ -18,11 +18,11 @@ public class ClientScreen extends JFrame {
     private JButton loginbtn; 
     private JLabel usernameLabel, passwordLabel, langLabel;
     private JPanel panel,  upperPanel, lowerPanel;
-    private String username,password, userLable, passLable, langTxt, index;
+    private String username,password, userLable, passLable, langTxt;
     private JComboBox<String> langDropdown;
     private ResourceBundle bn;
     private LangChooser langChooser = new LangChooser();
-    public static String[] lang = {"Português","Deutsch", "Español", "English"};
+    public static String[] lang = {"Português","Deutsch", "Español", "English", "Italiano"};
 
     public ClientScreen() {
 
@@ -56,6 +56,7 @@ public class ClientScreen extends JFrame {
 
 
         langDropdown = new JComboBox<>(lang);
+        langDropdown.setSelectedItem(langChooser.getLastLang());
         langDropdown.addItemListener (  new ItemListener()
            {
               public void itemStateChanged( ItemEvent event )
@@ -85,7 +86,7 @@ public class ClientScreen extends JFrame {
         passwordField = new JPasswordField(20);
         setLanguage();
 
-        loginbtn = new JButton("Login");
+        loginbtn = new JButton(bn.getString("login.login"));
 
 
         loginbtn.addActionListener(e -> {

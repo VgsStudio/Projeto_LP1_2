@@ -1,1 +1,1 @@
-Lang=Español
+Lang=Italiano
