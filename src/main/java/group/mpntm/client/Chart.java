@@ -118,11 +118,12 @@ public class Chart extends JFrame {
         historyButton.addActionListener(e -> {
 
             if (historyTable != null){
-                remove(historyScrollPane);
-                remove(historyTable);
+                upperPanel.remove(historyScrollPane);
+                upperPanel.remove(historyTable);
                 historyScrollPane = null;
                 historyTable = null;
                 this.repaint();
+                this.revalidate();
                 pack();
 
             }
