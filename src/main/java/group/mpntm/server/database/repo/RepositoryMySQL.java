@@ -108,7 +108,7 @@ public class RepositoryMySQL {
     }
    
     public static void createCandle(Candle candle){
-        String sqlInsert = "INSERT INTO " + candles_table_name + " VALUES(?, ?, ?, ?, ?, 0)";
+        String sqlInsert = "INSERT INTO " + candles_table_name + " VALUES(?, ?, ?, ?, ?, ?, 0)";
         Connection conn = ConnectorFactory.getConn();
         PreparedStatement stmt = null;
         try{
@@ -118,6 +118,7 @@ public class RepositoryMySQL {
             stmt.setDouble(3, candle.getHigh());
             stmt.setDouble(4, candle.getLow());
             stmt.setString(5, candle.getDate());
+            stmt.setString(6, candle.getTime());
             stmt.executeUpdate();
         }
         catch(SQLException e){
@@ -170,7 +171,8 @@ public class RepositoryMySQL {
                     result_set.getDouble("closeValue"),
                     result_set.getDouble("highValue"),
                     result_set.getDouble("lowValue"),
-                    result_set.getString("date")
+                    result_set.getString("date"),
+                    result_set.getString("time")
                     );
                     dados.add(data);
                 }
@@ -199,7 +201,8 @@ public class RepositoryMySQL {
                     result_set.getDouble("closeValue"),
                     result_set.getDouble("highValue"),
                     result_set.getDouble("lowValue"),
-                    result_set.getString("date")
+                    result_set.getString("date"),
+                    result_set.getString("time")
                     );
                     dados.add(data);
                 }

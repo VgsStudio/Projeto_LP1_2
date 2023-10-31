@@ -226,9 +226,9 @@ public class Chart extends JFrame {
 
     public void addHistoryTable(java.util.List<Candle> candles){
 
-        String[] headers = {bn.getString("chart.date"), bn.getString("chart.open"), bn.getString("chart.close"), bn.getString("chart.high"), bn.getString("chart.low")};
+        String[] headers = {bn.getString("chart.date"), bn.getString("chart.open"), bn.getString("chart.close"), bn.getString("chart.high"), bn.getString("chart.low"), bn.getString("chart.time")};
 
-        String[][] data = new String[candles.size()][5];
+        String[][] data = new String[candles.size()][6];
 
         for (int i = 0; i < candles.size(); i++) {
             data[i][0] = candles.get(i).getDate();
@@ -236,6 +236,7 @@ public class Chart extends JFrame {
             data[i][2] = String.valueOf(candles.get(i).getClose());
             data[i][3] = String.valueOf(candles.get(i).getHigh());
             data[i][4] = String.valueOf(candles.get(i).getLow());
+            data[i][5] = String.valueOf(candles.get(i).getTime());
         }
 
         model = new DefaultTableModel(data, headers);
