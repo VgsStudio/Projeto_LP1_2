@@ -12,7 +12,6 @@ import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class Chart extends JFrame {
@@ -174,19 +173,14 @@ public class Chart extends JFrame {
             xData.removeFirst();
         }
 
-        candle.date = start.plusSeconds(xData.getLast().longValue()*interval).format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+        candle.date = start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         if (historyTable != null){
             String[] data = candle.toStringArray();
             model = (DefaultTableModel) historyTable.getModel();
-            model.addRow(data);
-
+            model.insertRow(0, data);
             historyTable.setModel(model);
-            historyTable.setVisible(false);
-            historyTable.scrollRectToVisible(historyTable.getCellRect(historyTable.getRowCount() + 1, 0, false));
-            historyTable.setVisible(true);
-
-
+            historyTable.setRowSelectionInterval(0, 0);
 
         }
 
@@ -226,9 +220,9 @@ public class Chart extends JFrame {
 
     public void addHistoryTable(java.util.List<Candle> candles){
 
-        String[] headers = {bn.getString("chart.date"), bn.getString("chart.open"), bn.getString("chart.close"), bn.getString("chart.high"), bn.getString("chart.low")};
+        String[] headers = {bn.getString("chart.date"), bn.getString("chart.open"), bn.getString("chart.close"), bn.getString("chart.high"), bn.getString("chart.low"), bn.getString("chart.time")};
 
-        String[][] data = new String[candles.size()][5];
+        String[][] data = new String[candles.size()][6];
 
         for (int i = 0; i < candles.size(); i++) {
             data[i][0] = candles.get(i).getDate();
@@ -236,6 +230,7 @@ public class Chart extends JFrame {
             data[i][2] = String.valueOf(candles.get(i).getClose());
             data[i][3] = String.valueOf(candles.get(i).getHigh());
             data[i][4] = String.valueOf(candles.get(i).getLow());
+            data[i][5] = String.valueOf(candles.get(i).getTime());
         }
 
         model = new DefaultTableModel(data, headers);

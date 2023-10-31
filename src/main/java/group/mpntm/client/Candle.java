@@ -11,6 +11,17 @@ public class Candle {
     private double high;
     private double low;
     public String date;
+    public String time;
+
+
+    public Candle(double open, double close, double high, double low, String date, String time) {
+        this.open = open;
+        this.close = close;
+        this.high = high;
+        this.low = low;
+        this.date = date;
+        this.time = time;
+    }
 
     public Candle(double open, double close, double high, double low, String date) {
         this.open = open;
@@ -18,6 +29,7 @@ public class Candle {
         this.high = high;
         this.low = low;
         this.date = date;
+        this.time = String.valueOf(LocalDateTime.now().getHour()) + ":" + String.valueOf(LocalDateTime.now().getMinute()) + ":" + String.valueOf(LocalDateTime.now().getSecond());
     }
 
     public Candle(double open, double close, double high, double low) {
@@ -26,6 +38,7 @@ public class Candle {
         this.high = high;
         this.low = low;
         this.date = String.valueOf(LocalDate.now());
+        this.time = String.valueOf(LocalDateTime.now().getHour()) + ":" + String.valueOf(LocalDateTime.now().getMinute()) + ":" + String.valueOf(LocalDateTime.now().getSecond());
     }
 
     public Candle() {
@@ -38,6 +51,7 @@ public class Candle {
         this.date = LocalDateTime.now().plusDays((long) random).format(
                 new DateTimeFormatterBuilder().appendPattern("HH:mm:ss").toFormatter()
         );
+        this.time = String.valueOf(LocalDateTime.now().getHour()) + ":" + String.valueOf(LocalDateTime.now().getMinute()) + ":" + String.valueOf(LocalDateTime.now().getSecond());
     }
 
     public double getOpen() {
@@ -80,12 +94,21 @@ public class Candle {
     public void setDate(String date) {
         this.date = date;
     }
+    
+    public String getTime() {
+        return this.time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
 
     public String toString() {
-        return "Open: " + this.open + " Close: " + this.close + " High: " + this.high + " Low: " + this.low + " Date: " + this.date;
+        return "Open: " + this.open + " Close: " + this.close + " High: " + this.high + " Low: " + this.low + " Date: " + this.date + " Time: " + this.time;
     }
 
     public String[] toStringArray() {
-        return new String[] {this.date, String.valueOf(this.open), String.valueOf(this.close), String.valueOf(this.high), String.valueOf(this.low)};
+        return new String[] {this.date, String.valueOf(this.open), String.valueOf(this.close), String.valueOf(this.high), String.valueOf(this.low), this.time};
     }
 }

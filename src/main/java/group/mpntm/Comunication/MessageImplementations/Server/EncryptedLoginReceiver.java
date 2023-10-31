@@ -38,16 +38,19 @@ public class EncryptedLoginReceiver implements IServerMessageImplementation {
 
         LocalDateTime date = LocalDateTime.now();
 
-        var chartInitJson = new Gson().toJson(new ChartInitContent("days", 1, "CALV7", date.format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss"))));
+        var chartInitJson = new Gson().toJson(new ChartInitContent("sec", 3, "CALV7", date.format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss"))));
 
-        clientProfile.clientCommunicationServerSide.SendMessage(chartInitJson, ChartInitReceiver.class.getSimpleName());
         try {
             Thread.sleep(200);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-        clientProfile.isLogged = loginContentResponse.value;
+        if (loginContentResponse.value){
+            clientProfile.clientCommunicationServerSide.SendMessage(chartInitJson, ChartInitReceiver.class.getSimpleName());
+            clientProfile.isLogged = loginContentResponse.value;
+        }
+
 
     }
 
