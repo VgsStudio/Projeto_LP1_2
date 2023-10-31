@@ -45,7 +45,7 @@ public OHLCGenerator(){
                 close = 140;
                 high = 200;
                 low = 70;
-
+                 
                 lastCandle = new Candle(open, close, high, low);
             }
 

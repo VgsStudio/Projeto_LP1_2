@@ -174,7 +174,7 @@ public class Chart extends JFrame {
             xData.removeFirst();
         }
 
-        candle.date = start.plusSeconds(xData.getLast().longValue()*interval).format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+        candle.date = start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")); // TODO
 
         if (historyTable != null){
             String[] data = candle.toStringArray();
