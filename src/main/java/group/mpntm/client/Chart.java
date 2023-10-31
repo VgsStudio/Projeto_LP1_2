@@ -12,7 +12,6 @@ import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class Chart extends JFrame {
@@ -174,19 +173,14 @@ public class Chart extends JFrame {
             xData.removeFirst();
         }
 
-        candle.date = start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")); // TODO
+        candle.date = start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         if (historyTable != null){
             String[] data = candle.toStringArray();
             model = (DefaultTableModel) historyTable.getModel();
-            model.addRow(data);
-
+            model.insertRow(0, data);
             historyTable.setModel(model);
-            historyTable.setVisible(false);
-            historyTable.scrollRectToVisible(historyTable.getCellRect(historyTable.getRowCount() + 1, 0, false));
-            historyTable.setVisible(true);
-
-
+            historyTable.setRowSelectionInterval(0, 0);
 
         }
 
