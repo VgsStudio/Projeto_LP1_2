@@ -84,9 +84,10 @@ public class ClientScreen extends JFrame {
         usernameField = new JTextField(20);
         passwordLabel = new JLabel();
         passwordField = new JPasswordField(20);
+        loginbtn = new JButton();
         setLanguage();
 
-        loginbtn = new JButton(bn.getString("login.login"));
+        
 
 
         loginbtn.addActionListener(e -> {
@@ -184,6 +185,7 @@ public class ClientScreen extends JFrame {
         passwordLabel.setText(passLable);
         langLabel.setText(langTxt);
         this.setTitle(bn.getString("login.login"));
+        loginbtn.setText(bn.getString("login.login"));
     }
 
     public void setLanguageFromTxt(){
