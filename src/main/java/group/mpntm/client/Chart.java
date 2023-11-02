@@ -12,6 +12,7 @@ import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Chart extends JFrame {
@@ -19,6 +20,7 @@ public class Chart extends JFrame {
     public JPanel chartPanel;
     public OHLCChart chart;
     public LinkedList<Candle> fifo = new LinkedList<>();
+    public LinkedList<Candle> currentHistory = new LinkedList<>();
     public LinkedList<Double> xData = new LinkedList<>();
     private ResourceBundle bn;
     private String title;
@@ -159,6 +161,7 @@ public class Chart extends JFrame {
 
 
     public void addCandle(Candle candle) {
+        
 
         if (chartPanel == null) {
             return;
@@ -173,9 +176,25 @@ public class Chart extends JFrame {
             xData.removeFirst();
         }
 
-        candle.date = start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String pattern;
+        
+        switch (bn.getLocale().getLanguage()) {
+            case "pt":
+                pattern = "dd-MM-yyyy";
+                break;
+            case "en":
+                pattern = "MM-dd-yyyy";
+                break;
+        
+            default:
+                pattern = "yyyy-MM-dd";
+                break;
+        }
+
+        candle.date = start.format(DateTimeFormatter.ofPattern(pattern));
 
         if (historyTable != null){
+            currentHistory.add(candle);
             String[] data = candle.toStringArray();
             model = (DefaultTableModel) historyTable.getModel();
             model.insertRow(0, data);
@@ -213,19 +232,43 @@ public class Chart extends JFrame {
             historyTable.getTableHeader().getColumnModel().getColumn(3).setHeaderValue(headers[3]);
             historyTable.getTableHeader().getColumnModel().getColumn(4).setHeaderValue(headers[4]);
 
+            upperPanel.remove(historyScrollPane);
+            upperPanel.remove(historyTable);
+            historyScrollPane = null;
+            historyTable = null;
+            java.util.List<Candle> candles = (List<Candle>) currentHistory.clone(); 
+            addHistoryTable(candles);
+
+
         }
 
         chartPanel.repaint();
     }
 
     public void addHistoryTable(java.util.List<Candle> candles){
-
+        currentHistory.clear();
+        currentHistory.addAll(candles);
         String[] headers = {bn.getString("chart.date"), bn.getString("chart.open"), bn.getString("chart.close"), bn.getString("chart.high"), bn.getString("chart.low"), bn.getString("chart.time")};
 
         String[][] data = new String[candles.size()][6];
 
+         String pattern;
+            
+        switch (bn.getLocale().getLanguage()) {
+            case "pt":
+                pattern = "dd-MM-yyyy";
+                break;
+            case "en":
+                pattern = "MM-dd-yyyy";
+                break;
+            
+            default:
+                pattern = "yyyy-MM-dd";
+                break;
+            }
+
         for (int i = 0; i < candles.size(); i++) {
-            data[i][0] = candles.get(i).getDate();
+            data[i][0] = start.format(DateTimeFormatter.ofPattern(pattern));
             data[i][1] = String.valueOf(candles.get(i).getOpen());
             data[i][2] = String.valueOf(candles.get(i).getClose());
             data[i][3] = String.valueOf(candles.get(i).getHigh());
