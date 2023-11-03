@@ -215,6 +215,7 @@ public class Chart extends JFrame {
         }
 
         chartPanel.repaint();
+        chartPanel.revalidate();
 
     }
 
