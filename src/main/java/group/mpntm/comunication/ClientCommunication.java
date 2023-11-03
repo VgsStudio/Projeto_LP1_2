@@ -9,7 +9,6 @@ import group.mpntm.comunication.messageImplementations.IClientMessageImplementat
 import group.mpntm.comunication.messageImplementations.MessageImplementationFactory;
 import group.mpntm.comunication.messageImplementations.Server.EncryptedLoginReceiver;
 import com.google.gson.Gson;
-import group.mpntm.server.Server;
 import group.mpntm.share.cripto.Criptography;
 
 import javax.crypto.BadPaddingException;
@@ -37,10 +36,10 @@ public class ClientCommunication extends Thread{
 
     public
     ClientCommunication() throws IOException {
-        clientSocket = new Socket(Server.ADDRESS, Server.PORT);
+        clientSocket = new Socket(ServerCommunication.ADDRESS, ServerCommunication.PORT);
         saida = new PrintWriter(clientSocket.getOutputStream(), true);
         entrada = new BufferedReader(new java.io.InputStreamReader(clientSocket.getInputStream()));
-        System.out.println("Cliente " + Server.ADDRESS + ":" + Server.PORT + " conectado ao servidor!");
+        System.out.println("Cliente " + ServerCommunication.ADDRESS + ":" + ServerCommunication.PORT + " conectado ao servidor!");
 
         start();
     }
