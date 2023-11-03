@@ -15,6 +15,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException{
 
+        LangChooser langChooser = new LangChooser();
+
         ClientCommunication clientCommunication;
         try{
             clientCommunication = new ClientCommunication();
@@ -40,7 +42,7 @@ public class Main {
         }
 
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Não foi possível conectar ao servidor", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, langChooser.getBn().getString("main.error"), langChooser.getBn().getString("main.error.title"), JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
 

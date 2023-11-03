@@ -1,1 +1,1 @@
-Lang=Português
+Lang=Deutsch
