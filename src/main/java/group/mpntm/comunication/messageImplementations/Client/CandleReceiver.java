@@ -3,7 +3,7 @@ package group.mpntm.comunication.messageImplementations.Client;
 import com.google.gson.Gson;
 import group.mpntm.comunication.events.CandleReceivedEvent;
 import group.mpntm.comunication.messageImplementations.IClientMessageImplementation;
-import group.mpntm.client.Candle;
+import group.mpntm.share.entity.Candle;
 
 public class CandleReceiver implements IClientMessageImplementation {
 

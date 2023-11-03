@@ -1,4 +1,4 @@
-package group.mpntm.client;
+package group.mpntm.share.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

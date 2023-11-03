@@ -1,8 +1,4 @@
 package group.mpntm.server.database.repo;
-import java.io.IOException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,11 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-
-import group.mpntm.client.Candle;
+import group.mpntm.share.entity.Candle;
 import group.mpntm.server.database.connector.ConnectorFactory;
 import group.mpntm.share.cripto.Criptography;
 
@@ -24,7 +16,7 @@ public class RepositoryMySQL {
 
     public static void main(String[] args) {
         // // Test create login for admin
-        createLogin("joaobranco", "teste123!");
+        createLogin("'joaobranco'", "teste123!");
 
         // // Test get pass for admin
         // String pass = getPass("admin");

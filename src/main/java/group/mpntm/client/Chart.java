@@ -4,6 +4,7 @@ import group.mpntm.comunication.events.CandleReceivedEvent;
 import group.mpntm.comunication.events.HistoryButtonPressedEvent;
 import group.mpntm.comunication.events.HistoryResponseEvent;
 import group.mpntm.comunication.mesasgeContent.ChartInitContent;
+import group.mpntm.share.entity.Candle;
 import org.knowm.xchart.*;
 
 import javax.swing.*;
