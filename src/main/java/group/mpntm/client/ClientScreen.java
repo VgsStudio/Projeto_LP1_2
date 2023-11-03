@@ -66,6 +66,8 @@ public class ClientScreen extends JFrame {
 
                     langChooser.chooseLang(op);
                     langChooser.setLastLang(op);
+
+
                     setLanguage();
 
 

@@ -62,6 +62,7 @@ public class Chart extends JFrame {
                 langChooser.chooseLang(lang[finalI]);
                 bn = langChooser.getBn();
                 setLanguage();
+                langChooser.setLastLang(lang[finalI]);
             });
             menu.add(menuItem);
         }
