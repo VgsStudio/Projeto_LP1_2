@@ -1,9 +1,9 @@
 package group.mpntm.client;
 
-import group.mpntm.Comunication.Events.CandleReceivedEvent;
-import group.mpntm.Comunication.Events.HistoryButtonPressedEvent;
-import group.mpntm.Comunication.Events.HistoryResponseEvent;
-import group.mpntm.Comunication.MesasgeContent.ChartInitContent;
+import group.mpntm.comunication.events.CandleReceivedEvent;
+import group.mpntm.comunication.events.HistoryButtonPressedEvent;
+import group.mpntm.comunication.events.HistoryResponseEvent;
+import group.mpntm.comunication.mesasgeContent.ChartInitContent;
 import org.knowm.xchart.*;
 
 import javax.swing.*;

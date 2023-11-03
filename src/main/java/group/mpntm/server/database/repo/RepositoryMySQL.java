@@ -24,7 +24,7 @@ public class RepositoryMySQL {
 
     public static void main(String[] args) {
         // // Test create login for admin
-        // createLogin("joaobranco", "teste123!");
+        createLogin("joaobranco", "teste123!");
 
         // // Test get pass for admin
         // String pass = getPass("admin");
