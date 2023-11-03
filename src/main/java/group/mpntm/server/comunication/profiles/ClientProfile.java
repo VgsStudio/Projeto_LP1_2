@@ -1,9 +1,9 @@
 package group.mpntm.server.comunication.profiles;
 
-import group.mpntm.server.comunication.ClientCommunicationServerSide;
-
 import java.io.IOException;
 import java.net.Socket;
+
+import group.mpntm.server.comunication.domain.ClientCommunicationServerSide;
 
 /**
  *  the client profile class is used to store the client's ip,

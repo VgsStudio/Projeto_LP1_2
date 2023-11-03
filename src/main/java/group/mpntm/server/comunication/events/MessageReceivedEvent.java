@@ -1,8 +1,8 @@
 package group.mpntm.server.comunication.events;
 
-import group.mpntm.server.comunication.Message;
-
 import java.util.HashSet;
+
+import group.mpntm.server.comunication.domain.Message;
 
 /**
  * this is the class that uses the observer pattern to notify the message listeners

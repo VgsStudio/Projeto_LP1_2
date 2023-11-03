@@ -1,4 +1,4 @@
-package group.mpntm.server.comunication;
+package group.mpntm.server.comunication.domain;
 
 /**
  * this class is used to send messages between the server and the client

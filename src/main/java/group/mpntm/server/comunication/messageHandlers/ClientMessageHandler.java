@@ -1,8 +1,8 @@
 package group.mpntm.server.comunication.messageHandlers;
 
-import group.mpntm.server.comunication.ClientCommunication;
-import group.mpntm.server.comunication.Message;
 import group.mpntm.server.comunication.messageImplementations.MessageImplementationFactory;
+import group.mpntm.server.comunication.domain.ClientCommunication;
+import group.mpntm.server.comunication.domain.Message;
 import group.mpntm.server.comunication.messageImplementations.IClientMessageImplementation;
 
 /**

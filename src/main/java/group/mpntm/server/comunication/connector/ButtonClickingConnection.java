@@ -4,7 +4,7 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.crypto.NoSuchPaddingException;
 
-import group.mpntm.server.comunication.ClientCommunication;
+import group.mpntm.server.comunication.domain.ClientCommunication;
 import group.mpntm.server.comunication.events.LoginButtonPressedEvent;
 import group.mpntm.server.comunication.events.LoginButtonPressedListener;
 import group.mpntm.share.cripto.Criptography;

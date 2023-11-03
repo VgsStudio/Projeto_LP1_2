@@ -1,4 +1,4 @@
-package group.mpntm.server.comunication;
+package group.mpntm.server.comunication.domain;
 
 import group.mpntm.server.comunication.events.LoginButtonPressedEvent;
 import group.mpntm.server.comunication.events.MessageReceivedEvent;

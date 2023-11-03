@@ -1,4 +1,4 @@
-package group.mpntm.server.comunication;
+package group.mpntm.server.comunication.domain;
 
 import com.google.gson.Gson;
 import group.mpntm.server.comunication.messageHandlers.ServerMessageHandler;
@@ -48,7 +48,7 @@ public class ServerCommunication extends Thread {
     }
 
 
-    public static void main(String[] args) throws IOException {
+    public static void execute() throws IOException {
         RepositoryMySQL.deleteCandleTable();
         OHLCGenerator ohlcGenerator = new OHLCGenerator();
         ServerCommunication serverCommunication = new ServerCommunication();
