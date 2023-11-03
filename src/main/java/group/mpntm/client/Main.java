@@ -2,12 +2,12 @@ package group.mpntm.client;
 
 import java.io.IOException;
 import com.google.gson.Gson;
-import group.mpntm.comunication.ClientCommunication;
-import group.mpntm.comunication.connector.ButtonClickingConnection;
-import group.mpntm.comunication.events.HistoryButtonPressedEvent;
-import group.mpntm.comunication.mesasgeContent.HistoryRequestContent;
-import group.mpntm.comunication.messageHandlers.ClientMessageHandler;
-import group.mpntm.comunication.messageImplementations.Server.HistoryRequestReceiver;
+import group.mpntm.server.comunication.ClientCommunication;
+import group.mpntm.server.comunication.connector.ButtonClickingConnection;
+import group.mpntm.server.comunication.events.HistoryButtonPressedEvent;
+import group.mpntm.server.comunication.mesasgeContent.HistoryRequestContent;
+import group.mpntm.server.comunication.messageHandlers.ClientMessageHandler;
+import group.mpntm.server.comunication.messageImplementations.Server.HistoryRequestReceiver;
 
 import javax.swing.*;
 

@@ -1,9 +1,9 @@
 package group.mpntm.client;
 
-import group.mpntm.comunication.events.CandleReceivedEvent;
-import group.mpntm.comunication.events.HistoryButtonPressedEvent;
-import group.mpntm.comunication.events.HistoryResponseEvent;
-import group.mpntm.comunication.mesasgeContent.ChartInitContent;
+import group.mpntm.server.comunication.events.CandleReceivedEvent;
+import group.mpntm.server.comunication.events.HistoryButtonPressedEvent;
+import group.mpntm.server.comunication.events.HistoryResponseEvent;
+import group.mpntm.server.comunication.mesasgeContent.ChartInitContent;
 import group.mpntm.share.entity.Candle;
 import org.knowm.xchart.*;
 
@@ -216,6 +216,8 @@ public class Chart extends JFrame {
 
         chartPanel.repaint();
         chartPanel.revalidate();
+        this.repaint();
+        this.revalidate();
 
     }
 

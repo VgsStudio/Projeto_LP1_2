@@ -2,10 +2,10 @@ package group.mpntm.client;
 
 import javax.swing.*;
 
-import group.mpntm.comunication.events.ChartInitEvent;
-import group.mpntm.comunication.events.LoginButtonPressedEvent;
-import group.mpntm.comunication.events.LoginFailedEvent;
-import group.mpntm.comunication.events.LoginSuccessfulEvent;
+import group.mpntm.server.comunication.events.ChartInitEvent;
+import group.mpntm.server.comunication.events.LoginButtonPressedEvent;
+import group.mpntm.server.comunication.events.LoginFailedEvent;
+import group.mpntm.server.comunication.events.LoginSuccessfulEvent;
 
 import java.awt.*;
 import java.awt.event.ItemListener;
