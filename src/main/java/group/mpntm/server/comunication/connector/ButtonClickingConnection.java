@@ -54,7 +54,6 @@ public class ButtonClickingConnection implements LoginButtonPressedListener{
         }
         LoginContent loginContent = new LoginContent(username, encryptedPassword);
 
-        System.out.println("Sending login content: " + loginContent.toString());
 
         var json = new Gson().toJson(loginContent);
 

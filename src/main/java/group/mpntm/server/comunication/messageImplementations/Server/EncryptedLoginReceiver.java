@@ -79,7 +79,6 @@ public class EncryptedLoginReceiver implements IServerMessageImplementation {
         
                 // Verificando se senhas são iguais
                 if (!inputPass.equals(validPass)) {
-                    System.out.println("Senha inválida: " + inputPass + " != " + validPass);
                     response = false;
                 }
             } catch (Exception e) {

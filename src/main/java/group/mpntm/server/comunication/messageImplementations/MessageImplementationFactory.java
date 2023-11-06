@@ -7,7 +7,6 @@ import group.mpntm.server.comunication.messageImplementations.Client.HistoryResp
 import group.mpntm.server.comunication.messageImplementations.Client.LoginResponseReceiver;
 import group.mpntm.server.comunication.messageImplementations.Server.EncryptedLoginReceiver;
 import group.mpntm.server.comunication.messageImplementations.Server.HistoryRequestReceiver;
-import group.mpntm.server.comunication.messageImplementations.Server.PublicKeySender;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,10 +26,6 @@ public class MessageImplementationFactory {
         Class c = null;
 
         //Main.getClassBySimpleName(className);
-        if (className.equals(PublicKeySender.class.getSimpleName())){
-            c = (Class) PublicKeySender.class;
-        }
-
         if (className.equals(EncryptedLoginSender.class.getSimpleName())){
             c = (Class) EncryptedLoginSender.class;
         }
@@ -64,9 +59,7 @@ public class MessageImplementationFactory {
         List<Class<?>> classes = new ArrayList<>();
         String classpath = System.getProperty("java.class.path");
         String[] classpathEntries = classpath.split(File.pathSeparator);
-        System.out.println("classpathEntries: " + classpathEntries.length);
         for (String entry : classpathEntries) {
-            System.out.println("entry: " + entry);
             File file = new File(entry);
             if (file.isDirectory()) {
                 List<Class<?>> foundClasses = findClassesInDirectory(file, interfaceClass);

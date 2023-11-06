@@ -11,8 +11,6 @@ public class CandleReceiver implements IClientMessageImplementation {
     public void Activate(String messageContent) {
         Candle candle = new Gson().fromJson(messageContent, Candle.class);
 
-//        System.out.println(candle);
-
         CandleReceivedEvent.getInstance().Invoke(candle);
 
     }
