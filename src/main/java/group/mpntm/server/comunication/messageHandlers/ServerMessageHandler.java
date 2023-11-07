@@ -12,10 +12,10 @@ import java.io.IOException;
  */
 public class ServerMessageHandler {
     public ServerMessageHandler(ClientProfile clientProfile) {
-        clientProfile.clientCommunicationServerSide.messageReceivedEvent.AddListener(message -> {OnMessageReceived(clientProfile,message);});
+        clientProfile.clientCommunicationServerSide.messageReceivedEvent.AddListener(message -> {OnMessageReceived(clientProfile, message);});
     }
 
-    private void OnMessageReceived(ClientProfile clientProfile,Message message){
+    private void OnMessageReceived(ClientProfile clientProfile, Message message){
 
         IServerMessageImplementation messageImplementation = null;
         try {
