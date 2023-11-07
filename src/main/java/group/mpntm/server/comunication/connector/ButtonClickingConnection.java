@@ -7,6 +7,7 @@ import javax.crypto.NoSuchPaddingException;
 import group.mpntm.server.comunication.domain.ClientCommunication;
 import group.mpntm.server.comunication.events.LoginButtonPressedEvent;
 import group.mpntm.server.comunication.events.LoginButtonPressedListener;
+import group.mpntm.server.comunication.mesasgeContent.LoginContent;
 import group.mpntm.share.cripto.Criptography;
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -17,7 +18,6 @@ import javax.crypto.IllegalBlockSizeException;
 
 import com.google.gson.Gson;
 
-import group.mpntm.server.comunication.mesasgeContent.LoginContent;
 import group.mpntm.server.comunication.messageImplementations.Server.EncryptedLoginReceiver;
 
 public class ButtonClickingConnection implements LoginButtonPressedListener{

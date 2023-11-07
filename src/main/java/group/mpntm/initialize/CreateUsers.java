@@ -1,3 +1,4 @@
+package group.mpntm.initialize;
 import group.mpntm.server.database.repo.RepositoryMySQL;
 
 public class CreateUsers {

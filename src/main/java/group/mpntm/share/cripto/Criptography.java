@@ -26,28 +26,6 @@ public class Criptography {
     private static String publicKeyPath = "src\\main\\java\\group\\mpntm\\share\\cripto\\chave.publica";
     private static String privateKeyPath = "src\\main\\java\\group\\mpntm\\share\\cripto\\chave.privada";
 
-    public static void main(String[] args) {
-        // try{
-        //     generatePubPrivKeys();
-        // }
-        // catch (Exception e){
-        //     e.printStackTrace();
-        // }
-
-        String mensagem = "admin";
-        try {
-            String msgCript = encryptRSA(mensagem);
-            String msgDecrypt = decryptRSA(msgCript);
-
-            System.out.println("Mensagem original: " + mensagem);
-            System.out.println("Mensagem criptografada: " + msgCript);
-            System.out.println("Mensagem descriptografada: " + msgDecrypt);
-        } catch (Exception e) {
-
-        }
-        
-    }
-
     public static void generatePubPrivKeys() throws   IOException, NoSuchAlgorithmException, CertificateException, KeyStoreException, InvalidAlgorithmParameterException {  
         final int RSAKEYSIZE = 1024;
         KeyPairGenerator kpg = KeyPairGenerator.getInstance ("RSA");  

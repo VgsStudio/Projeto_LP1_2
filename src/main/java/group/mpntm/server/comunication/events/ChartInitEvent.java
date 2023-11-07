@@ -1,8 +1,8 @@
 package group.mpntm.server.comunication.events;
 
-import group.mpntm.server.comunication.mesasgeContent.ChartInitContent;
-
 import java.util.HashSet;
+
+import group.mpntm.server.comunication.mesasgeContent.ChartInitContent;
 
 public class ChartInitEvent {
 

@@ -54,11 +54,9 @@ public OHLCGenerator(){
 
             double factor = (lastCandle.getOpen()/ lastCandle.getClose() - 1.0)/correctionScale + 1.0;
 
-            System.out.println(factor);
 
             var randomNumber = (Math.random()*2.0-1.0);
 
-            System.out.println(randomNumber);
 
             close = open * factor + randomScale * randomNumber;
 
@@ -73,7 +71,6 @@ public OHLCGenerator(){
 
             lastCandle = new Candle(open, close, high, low);
 
-            System.out.println(lastCandle);
 
             NumberGeneratedEvent.getInstance().Invoke(lastCandle);
         }

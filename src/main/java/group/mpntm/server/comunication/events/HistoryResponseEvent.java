@@ -1,6 +1,7 @@
 package group.mpntm.server.comunication.events;
 
 import java.util.HashSet;
+
 import group.mpntm.server.comunication.mesasgeContent.HistoryResponseContent;
 
 public class HistoryResponseEvent {

@@ -1,10 +1,11 @@
 package group.mpntm.server.comunication.messageImplementations.Server;
 
 import com.google.gson.Gson;
+
+import group.mpntm.server.comunication.messageImplementations.Client.ChartInitReceiver;
 import group.mpntm.server.comunication.mesasgeContent.ChartInitContent;
 import group.mpntm.server.comunication.mesasgeContent.LoginContent;
 import group.mpntm.server.comunication.mesasgeContent.LoginContentResponse;
-import group.mpntm.server.comunication.messageImplementations.Client.ChartInitReceiver;
 import group.mpntm.server.comunication.messageImplementations.IServerMessageImplementation;
 import group.mpntm.server.comunication.messageImplementations.Client.LoginResponseReceiver;
 import group.mpntm.server.comunication.profiles.ClientProfile;
