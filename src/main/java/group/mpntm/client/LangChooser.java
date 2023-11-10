@@ -16,7 +16,7 @@ public class LangChooser {
     }
 
     public LangChooser(){
-      chooseLang("Português");
+      chooseLang(getLastLang());
     }
 
     public void chooseLang(String lang){

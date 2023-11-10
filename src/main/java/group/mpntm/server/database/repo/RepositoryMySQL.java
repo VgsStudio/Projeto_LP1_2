@@ -1,8 +1,4 @@
 package group.mpntm.server.database.repo;
-import java.io.IOException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,49 +6,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-
-import group.mpntm.client.Candle;
+import group.mpntm.share.entity.Candle;
 import group.mpntm.server.database.connector.ConnectorFactory;
 import group.mpntm.share.cripto.Criptography;
 
 public class RepositoryMySQL {
     private static String login_table_name = "LOGIN";
     private static String candles_table_name = "CANDLES";
-
-    public static void main(String[] args) {
-        // // Test create login for admin
-        // createLogin("joaobranco", "teste123!");
-
-        // // Test get pass for admin
-        // String pass = getPass("admin");
-        // System.out.println("Senha do admin criptografada: " + pass);
-        // String passDecrypt;
-        // try {
-        //     passDecrypt = Criptography.decryptRSA(pass);
-        // } catch (Exception e) {
-        //     passDecrypt = "Deu merda";
-        // }
-        // System.out.println("Senha do admin descriptografada: " + passDecrypt);
-
-        // // Test get pass for non existent user
-        // String pass2 = getPass("nonexistent");
-        // System.out.println("Senha do nonexistent criptografada: " + pass2);]
-
-        // // Test createCandle
-        // Candle c = new Candle(1.0 ,2.0, 3.0, 4.0);
-        // createCandle(c);
-
-        // // Test deleteCandleTable
-        // deleteCandleTable();
-
-        // // Test getAllCandles
-        // List<Candle> candles = tailCandles(50);
-        // System.out.println("O tamanho eh: " + candles.size());
-
-    }
 
     public static void createLogin(String name, String password) {
 

@@ -1,9 +1,10 @@
 package group.mpntm.client;
 
-import group.mpntm.Comunication.Events.CandleReceivedEvent;
-import group.mpntm.Comunication.Events.HistoryButtonPressedEvent;
-import group.mpntm.Comunication.Events.HistoryResponseEvent;
-import group.mpntm.Comunication.MesasgeContent.ChartInitContent;
+import group.mpntm.server.comunication.events.CandleReceivedEvent;
+import group.mpntm.server.comunication.events.HistoryButtonPressedEvent;
+import group.mpntm.server.comunication.events.HistoryResponseEvent;
+import group.mpntm.server.comunication.mesasgeContent.ChartInitContent;
+import group.mpntm.share.entity.Candle;
 import org.knowm.xchart.*;
 
 import javax.swing.*;
@@ -61,6 +62,7 @@ public class Chart extends JFrame {
                 langChooser.chooseLang(lang[finalI]);
                 bn = langChooser.getBn();
                 setLanguage();
+                langChooser.setLastLang(lang[finalI]);
             });
             menu.add(menuItem);
         }
@@ -213,6 +215,9 @@ public class Chart extends JFrame {
         }
 
         chartPanel.repaint();
+        chartPanel.revalidate();
+        this.repaint();
+        this.revalidate();
 
     }
 

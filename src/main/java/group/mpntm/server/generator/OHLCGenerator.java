@@ -1,12 +1,8 @@
 package group.mpntm.server.generator;
 
-import group.mpntm.Comunication.Events.LoginButtonPressedEvent;
-import group.mpntm.Comunication.Events.LoginButtonPressedListener;
-import group.mpntm.client.Candle;
-import group.mpntm.server.database.repo.RepositoryMySQL;
+import group.mpntm.share.entity.Candle;
 
 import java.util.HashSet;
-import java.util.Random;
 
 
 public class OHLCGenerator extends Thread{
@@ -58,11 +54,9 @@ public OHLCGenerator(){
 
             double factor = (lastCandle.getOpen()/ lastCandle.getClose() - 1.0)/correctionScale + 1.0;
 
-            System.out.println(factor);
 
             var randomNumber = (Math.random()*2.0-1.0);
 
-            System.out.println(randomNumber);
 
             close = open * factor + randomScale * randomNumber;
 
@@ -77,7 +71,6 @@ public OHLCGenerator(){
 
             lastCandle = new Candle(open, close, high, low);
 
-            System.out.println(lastCandle);
 
             NumberGeneratedEvent.getInstance().Invoke(lastCandle);
         }

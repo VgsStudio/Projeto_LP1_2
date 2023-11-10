@@ -2,10 +2,10 @@ package group.mpntm.client;
 
 import javax.swing.*;
 
-import group.mpntm.Comunication.Events.ChartInitEvent;
-import group.mpntm.Comunication.Events.LoginButtonPressedEvent;
-import group.mpntm.Comunication.Events.LoginFailedEvent;
-import group.mpntm.Comunication.Events.LoginSuccessfulEvent;
+import group.mpntm.server.comunication.events.ChartInitEvent;
+import group.mpntm.server.comunication.events.LoginButtonPressedEvent;
+import group.mpntm.server.comunication.events.LoginFailedEvent;
+import group.mpntm.server.comunication.events.LoginSuccessfulEvent;
 
 import java.awt.*;
 import java.awt.event.ItemListener;
@@ -66,6 +66,8 @@ public class ClientScreen extends JFrame {
 
                     langChooser.chooseLang(op);
                     langChooser.setLastLang(op);
+
+
                     setLanguage();
 
 
